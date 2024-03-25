@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "8475561867",
+    "project_id": "gotrail-239ab",
+    "storage_bucket": "gotrail-239ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8475561867:android:049de61bb5e9629deae98e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkNY6sC-qdk0kgXueCKVxonN0i4UWg_r4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
