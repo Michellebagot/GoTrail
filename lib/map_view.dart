@@ -151,8 +151,8 @@ class MapWidgetState extends State<MapWidget> {
             polylines: trails.map((trail) {
           return Polyline(
             points: trail.coordinates,
-            color: Colors.blue, // Customize polyline color
-            strokeWidth: 3, // Customize polyline width
+            color: Colors.blue,
+            strokeWidth: 3,
           );
         }).toList()),
         RichAttributionWidget(
