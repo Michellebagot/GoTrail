@@ -40,6 +40,8 @@ dependencies:
   url_launcher: ^6.2.5
   flutter_map_geojson: ^1.0.6
   http: ^1.2.1
+  firebase_core: ^2.27.1
+  cloud_firestore: ^4.15.9
 
 dev_dependencies:
   flutter_test:
