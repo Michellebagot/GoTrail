@@ -1,6 +1,8 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/profile/profile_page.dart';
+import 'package:GoTrail/profile/profile_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,8 +10,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
+      backgroundColor: Color.fromRGBO(255, 246, 222, 1),
+       appBar: AppBar( // TODO : need to extract this and replace with header_bar 
+            leading: Icon(Icons.menu),
+            title: Text('GoTrail',
+            style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
+            
+            ),
+            toolbarHeight: 50,
+            backgroundColor: Color.fromRGBO(166, 132, 119, 1),
+             actions: [
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
@@ -20,8 +30,7 @@ class HomeScreen extends StatelessWidget {
             },
           )
         ],
-        automaticallyImplyLeading: false,
-      ),
+          ),
       body: Center(
         child: Column(
           children: [

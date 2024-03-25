@@ -1,5 +1,6 @@
-name: flutter_application_1
-description: "A new Flutter project."
+
+name: GoTrail
+description: "GoTrail to explore new trails."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -38,6 +39,9 @@ dependencies:
   firebase_auth: ^4.17.9
   firebase_core: ^2.27.1
   firebase_ui_auth: ^1.13.1
+  google_fonts: ^6.2.1
+
+  
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +59,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
