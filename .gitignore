@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=flutter,dart,firebase
 
 api/
+api_key.dart
+firebase_options.dart
 
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
