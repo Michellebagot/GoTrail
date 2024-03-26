@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flutter,dart,firebase
 # Edit at https://www.toptal.com/developers/gitignore?templates=flutter,dart,firebase
 
+api/
+
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
 
@@ -38,6 +40,7 @@ doc/api/
 .idea
 **/node_modules/*
 **/.firebaserc
+lib/firebase_options.dart
 
 ### Firebase Patch ###
 .runtimeconfig.json

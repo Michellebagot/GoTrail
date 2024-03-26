@@ -3,7 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+
+  url_launcher_linux
+
   desktop_webview_auth
+ 
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
