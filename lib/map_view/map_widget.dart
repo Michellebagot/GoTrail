@@ -45,7 +45,10 @@ class MapWidgetState extends State<MapWidget> {
             .map((geoPoint) => LatLng(geoPoint.latitude, geoPoint.longitude))
             .toList();
 
+        String docId = doc.id;
+
         return Trail(
+          trailId: docId,
           name: doc['name'] ?? '',
           description: doc['description'] ?? '',
           coordinates: latLngList,
