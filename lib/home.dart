@@ -1,8 +1,8 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/profile/profile_page.dart';
+import 'package:GoTrail/map_view/map_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,15 +11,18 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 246, 222, 1),
-       appBar: AppBar( // TODO : need to extract this and replace with header_bar 
-            leading: Icon(Icons.menu),
-            title: Text('GoTrail',
-            style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
-            
-            ),
-            toolbarHeight: 50,
-            backgroundColor: Color.fromRGBO(166, 132, 119, 1),
-             actions: [
+      appBar: AppBar(
+        // TODO : need to extract this and replace with header_bar
+        leading: Icon(Icons.menu),
+        title: Text(
+          'GoTrail',
+          style: GoogleFonts.balooBhaina2(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        toolbarHeight: 50,
+        backgroundColor: Color.fromRGBO(166, 132, 119, 1),
+        actions: [
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
@@ -30,7 +33,7 @@ class HomeScreen extends StatelessWidget {
             },
           )
         ],
-          ),
+      ),
       body: Center(
         child: Column(
           children: [
@@ -39,12 +42,19 @@ class HomeScreen extends StatelessWidget {
               'This is the Home Screen of the App!',
               style: Theme.of(context).textTheme.displaySmall,
             ),
+            ElevatedButton(
+                onPressed: () {
+                  print("hello");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MapPage()),
+                  );
+                },
+                child: Text("go to map view")),
             const SignOutButton(),
           ],
         ),
       ),
     );
   }
-
-
 }
