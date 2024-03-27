@@ -11,7 +11,6 @@ import 'package:GoTrail/profile/profile_page.dart';
             leading: Icon(Icons.menu),
             title: Text('GoTrail',
             style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
-            
             ),
             toolbarHeight: 50,
             backgroundColor: Color.fromRGBO(166, 132, 119, 1),
