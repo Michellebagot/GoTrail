@@ -3,21 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_map_geojson/flutter_map_geojson.dart';
-// import 'package:http/http.dart' as http;
-// import 'api/api_key.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-class Trail {
-  final String name;
-  final String description;
-  final List<LatLng> coordinates;
-
-  Trail({
-    required this.name,
-    required this.description,
-    required this.coordinates,
-  });
-}
+import 'package:GoTrail/trail_view/trail_details_page.dart';
+import 'package:GoTrail/classes/trail.dart';
 
 class MapWidget extends StatefulWidget {
   @override
@@ -57,7 +45,10 @@ class MapWidgetState extends State<MapWidget> {
             .map((geoPoint) => LatLng(geoPoint.latitude, geoPoint.longitude))
             .toList();
 
+        String docId = doc.id;
+
         return Trail(
+          trailId: docId,
           name: doc['name'] ?? '',
           description: doc['description'] ?? '',
           coordinates: latLngList,
@@ -71,39 +62,12 @@ class MapWidgetState extends State<MapWidget> {
     }
   }
 
-  // void fetchData() async {
-  //   double minLongitude = stainland.longitude - radius;
-  //   double minLatitude = stainland.latitude - radius;
-  //   double maxLongitude = stainland.longitude + radius;
-  //   double maxLatitude = stainland.latitude + radius;
-
-  //   String bbox = "$minLongitude,$minLatitude,$maxLongitude,$maxLatitude";
-
-  //   var url = Uri.https('osm.buntinglabs.com', '/v1/osm/extract', {
-  //     'tags': 'highway=path&name=*',
-  //     'api_key': osmApiKey,
-  //     'bbox': bbox,
-  //   });
-
-  //   var response = await http.get(url);
-
-  //   if (response.statusCode == 200) {
-  //     print(response.body);
-  //     setState(() {
-  //       myGeoJson.parseGeoJsonAsString(response.body);
-  //       polylines = myGeoJson.polylines;
-  //     });
-  //   } else {
-  //     print('Request failed, status: ${response.statusCode}');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
         initialCenter: stainland,
-        initialZoom: 9.2,
+        initialZoom: 12,
       ),
       children: [
         TileLayer(
@@ -132,7 +96,17 @@ class MapWidgetState extends State<MapWidget> {
                                 ]),
                           ),
                           actions: [
-                            TextButton(
+                            ElevatedButton(onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrailDetailsPage(trail),
+                                ),
+                              );
+                            },
+                            child: Text("View more details")),
+                            ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
