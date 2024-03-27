@@ -3,6 +3,7 @@ import 'package:GoTrail/classes/trail.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:GoTrail/trail_view/trail_details_page.dart';
 
 class ReviewPage extends StatefulWidget {
   final Trail trail;
@@ -43,17 +44,24 @@ class ReviewPageState extends State<ReviewPage> {
     }).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Review submitted successfully!'),
+          content: Text('Review submitted, thanks!'),
         ),
       );
       setState(() {
         _rating = 0;
         _comment = '';
       });
+      Navigator.of(context).pop();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TrailDetailsPage(widget.trail),
+        ),
+      );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Couldn' 't submit your review: $error'),
+          content: Text("Couldn't submit your review: $error"),
         ),
       );
     });
