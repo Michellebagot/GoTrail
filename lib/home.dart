@@ -1,3 +1,4 @@
+import 'package:GoTrail/trail_search/trail_search.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/profile/profile_page.dart';
@@ -50,6 +51,17 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: Text("go to map view")),
+                
+                // Trail search button
+                ElevatedButton(
+                onPressed: () {
+                  print("hello");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchPage()),
+                  );
+                },
+                child: Text("Search trails")),
             const SignOutButton(),
           ],
         ),
