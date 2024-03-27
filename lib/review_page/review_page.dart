@@ -3,7 +3,6 @@ import 'package:GoTrail/classes/trail.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:GoTrail/trail_view/trail_details_page.dart';
 
 class ReviewPage extends StatefulWidget {
   final Trail trail;
@@ -74,17 +73,6 @@ class ReviewPageState extends State<ReviewPage> {
               maxHeight: 50,
             ),
             0),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TrailDetailsPage(widget.trail),
-                ),
-              );
-            },
-            child: Text("Back to trail page")),
         Text('Reviewing ${widget.trail.name} as $userId'),
         SizedBox(
           width: MediaQuery.of(context).size.width,

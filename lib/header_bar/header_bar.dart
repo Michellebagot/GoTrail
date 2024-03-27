@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:GoTrail/profile/profile_page.dart';
 import 'package:GoTrail/home.dart';
+import 'package:GoTrail/map_view/map_page.dart';
+import 'package:GoTrail/trail_search/trail_search.dart';
 
 Widget header(context, constraints, shrinkOffset) {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -13,12 +15,6 @@ Widget header(context, constraints, shrinkOffset) {
         child: Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                scaffoldKey.currentState?.openDrawer();
-              },
-            ),
             title: GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(
@@ -37,6 +33,28 @@ Widget header(context, constraints, shrinkOffset) {
             backgroundColor: Color.fromRGBO(166, 132, 119, 1),
             actions: [
               IconButton(
+                icon: const Icon(Icons.map),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapPage(),
+                    ),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(),
+                    ),
+                  );
+                },
+              ),
+              IconButton(
                 icon: const Icon(Icons.person),
                 onPressed: () {
                   Navigator.push(
@@ -46,25 +64,6 @@ Widget header(context, constraints, shrinkOffset) {
                 },
               )
             ],
-          ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                  child: Text('menu header'),
-                ),
-                ListTile(
-                  title: Text('item 1'),
-                  onTap: () {
-                    print("tapped item 1");
-                  },
-                ),
-              ],
-            ),
           ),
         ),
       ));
