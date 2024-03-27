@@ -10,4 +10,6 @@ class Trail {
     required this.description,
     required this.coordinates,
   });
+
+  Null get location => null;
 }
