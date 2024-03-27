@@ -1,32 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:GoTrail/profile/profile_page.dart';
+import 'package:GoTrail/home.dart';
  
- Widget header(context, constraints, shrinkOffset) {
+Widget header(context, constraints, shrinkOffset) {
 
-      return Padding(
-        padding: const EdgeInsets.all(0.1),
-        child: Scaffold(
-          appBar: AppBar(
-            leading: Icon(Icons.menu),
-            title: Text('GoTrail',
-            style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
-            
-            ),
-            toolbarHeight: 50,
-            backgroundColor: Color.fromRGBO(166, 132, 119, 1),
-             actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              Navigator.push(
+      return SizedBox(
+        height: constraints.maxHeight,
+        width: constraints.maxWidth,
+        child: Padding(
+          padding: const EdgeInsets.all(0.1),
+          child: Scaffold(
+            appBar: AppBar(
+              leading: Icon(Icons.menu),
+              title: GestureDetector(
+                onTap: () {
+              Navigator.pushReplacement(
                 context,
-                profilePage(),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
             },
-          )
-        ],
-          ),),
-
-);
+                child: Text('GoTrail',
+                style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
+                
+                ),
+              ),
+              toolbarHeight: 50,
+              backgroundColor: Color.fromRGBO(166, 132, 119, 1),
+               actions: [
+            IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  profilePage(),
+                );
+              },
+            )
+          ],
+            ),),
+        
+        ),
+      );
    }

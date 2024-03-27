@@ -45,7 +45,6 @@ class HomeScreen extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  print("hello");
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MapPage()),
