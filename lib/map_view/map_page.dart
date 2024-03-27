@@ -6,7 +6,6 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
       body: Column(
         children: [
           header(
