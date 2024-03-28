@@ -1,7 +1,5 @@
-import 'package:GoTrail/trail_search/trail_search.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:GoTrail/map_view/map_page.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,25 +25,6 @@ class HomeScreen extends StatelessWidget {
               'This is the Home Screen of the App!',
               style: Theme.of(context).textTheme.displaySmall,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MapPage()),
-                  );
-                },
-                child: Text("go to map view")),
-
-            // Trail search button
-            ElevatedButton(
-                onPressed: () {
-                  print("hello");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SearchPage()),
-                  );
-                },
-                child: Text("Search trails")),
             const SignOutButton(),
           ],
         ),

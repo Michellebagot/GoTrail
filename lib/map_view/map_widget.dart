@@ -97,7 +97,7 @@ class MapWidgetState extends State<MapWidget> {
                           ),
                           actions: [
                             ElevatedButton(onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.of(context, rootNavigator: true).pop('dialog');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

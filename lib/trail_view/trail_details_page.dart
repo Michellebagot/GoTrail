@@ -147,7 +147,6 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 _canReview
                     ? ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
                           Navigator.push(
                             context,
                             MaterialPageRoute(

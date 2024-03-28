@@ -4,16 +4,14 @@ import 'package:GoTrail/profile/profile_page.dart';
 import 'package:GoTrail/home.dart';
 import 'package:GoTrail/map_view/map_page.dart';
 import 'package:GoTrail/trail_search/trail_search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Widget header(context, constraints, shrinkOffset) {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   return SizedBox(
       height: constraints.maxHeight,
       child: Padding(
         padding: const EdgeInsets.all(0.1),
         child: Scaffold(
-          key: scaffoldKey,
           appBar: AppBar(
             title: GestureDetector(
               onTap: () {
@@ -32,7 +30,8 @@ Widget header(context, constraints, shrinkOffset) {
             toolbarHeight: 50,
             backgroundColor: Color.fromRGBO(166, 132, 119, 1),
             actions: [
-              IconButton(
+              if (FirebaseAuth.instance.currentUser != null)
+                IconButton(
                 icon: const Icon(Icons.map),
                 onPressed: () {
                   Navigator.push(
@@ -43,7 +42,8 @@ Widget header(context, constraints, shrinkOffset) {
                   );
                 },
               ),
-              IconButton(
+              if (FirebaseAuth.instance.currentUser != null)
+                IconButton(
                 icon: const Icon(Icons.search),
                 onPressed: () {
                   Navigator.push(
@@ -54,7 +54,8 @@ Widget header(context, constraints, shrinkOffset) {
                   );
                 },
               ),
-              IconButton(
+              if (FirebaseAuth.instance.currentUser != null)
+                IconButton(
                 icon: const Icon(Icons.person),
                 onPressed: () {
                   Navigator.push(

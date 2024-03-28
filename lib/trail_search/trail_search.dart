@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:GoTrail/trail_view/trail_details_page.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:GoTrail/classes/trail.dart';
 
 class SearchPage extends StatefulWidget {
@@ -90,19 +88,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-// class Trail {
-//   final String name;
-//   final String description;
-//   final String trailId;
-//   final List<LatLng> coordinates; 
-
-//   Trail.fromSnapshot(DocumentSnapshot snapshot)
-//       : name = snapshot.get('name'),
-//         description = snapshot.get('description'),
-//         trailId = snapshot.get('trailId'),
-//         coordinates = snapshot.get('coordinates');
-// }
-
 class TrailListItem extends StatelessWidget {
   final Trail trail;
 
@@ -117,7 +102,6 @@ class TrailListItem extends StatelessWidget {
           Text(trail.description),
           ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
