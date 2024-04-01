@@ -5,6 +5,8 @@ import 'package:GoTrail/profile/profile_page.dart';
 import 'package:GoTrail/map_view/map_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:GoTrail/profile/profile_page_mb.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -38,11 +40,16 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            // Image.asset('dash.png'),
             Text(
               'This is the Home Screen of the App!',
               style: Theme.of(context).textTheme.displaySmall,
             ),
+            ElevatedButton(onPressed: () {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePageMB()),
+                  );
+            }, child: Text("Profile Page"),),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -51,9 +58,9 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: Text("go to map view")),
-                
-                // Trail search button
-                ElevatedButton(
+
+            // Trail search button
+            ElevatedButton(
                 onPressed: () {
                   print("hello");
                   Navigator.push(
