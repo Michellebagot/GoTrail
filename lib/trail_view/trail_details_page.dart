@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:GoTrail/review_page/review_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:GoTrail/tracking_page/tracking_page.dart';
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
@@ -90,6 +91,17 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
           Text(widget.trail.name),
           SizedBox(height: 10),
           Text(widget.trail.description),
+          SizedBox(height: 10),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrackingPage(widget.trail),
+                  ),
+                );
+              },
+              child: Text('Start Trail')),
           Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
