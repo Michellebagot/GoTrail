@@ -96,8 +96,9 @@ class TrailBlazersState extends State<TrailBlazers> {
                  userUpdate.update({"trailBlazer": chosenTrailBlazer, "trailBlazerName": trailBlazerName}).then(
                    (value) =>   Navigator.push(
                    context,
-                   profilePage(),
-                   )
+                   MaterialPageRoute(
+                          builder: (context) => TrailBlazerProfile()
+                   )),
                  );
                  }
                },
