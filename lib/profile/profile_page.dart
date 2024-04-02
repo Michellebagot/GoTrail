@@ -66,12 +66,6 @@ import 'package:GoTrail/trail_search/trail_search.dart';
                   ],
                   children: [
                     const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                      ),
-                    ),
                   ],
                 ),
               );

@@ -51,12 +51,6 @@ class ReviewPageState extends State<ReviewPage> {
         _comment = '';
       });
       Navigator.of(context).pop();
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => TrailDetailsPage(widget.trail),
-      //   ),
-      // );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
