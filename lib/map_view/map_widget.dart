@@ -52,6 +52,7 @@ class MapWidgetState extends State<MapWidget> {
           name: doc['name'] ?? '',
           description: doc['description'] ?? '',
           coordinates: latLngList,
+          image: doc['image'] ?? '',
         );
       }).toList();
 
@@ -92,7 +93,8 @@ class MapWidgetState extends State<MapWidget> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(trail.name),
-                                  Text(trail.description)
+                                  Text(trail.description),
+                            
                                 ]),
                           ),
                           actions: [

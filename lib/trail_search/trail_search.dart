@@ -13,8 +13,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String _searchText = "";
-  List<Trail> _allTrails = []; 
-  List<Trail> _filteredTrails = []; 
+  List<Trail> _allTrails = [];
+  List<Trail> _filteredTrails = [];
 
   final _firestore = FirebaseFirestore.instance;
 
@@ -43,7 +43,7 @@ class _SearchPageState extends State<SearchPage> {
           TextField(
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
-              hintText: 'Search trails...',
+              hintText: 'Search local trails...',
             ),
             onChanged: (text) {
               setState(() {
@@ -56,7 +56,8 @@ class _SearchPageState extends State<SearchPage> {
             child: _filteredTrails.isNotEmpty
                 ? ListView.builder(
                     itemCount: _filteredTrails.length,
-                    itemBuilder: (context, index) => TrailListItem(_filteredTrails[index]),
+                    itemBuilder: (context, index) =>
+                        TrailListItem(_filteredTrails[index]),
                   )
                 : Center(child: Text('No trails found!')),
           ),
@@ -68,7 +69,8 @@ class _SearchPageState extends State<SearchPage> {
   Future<void> _fetchTrails() async {
     try {
       final trails = await _firestore.collection('trails').get();
-      final trailList = trails.docs.map((doc) => Trail.fromSnapshot(doc)).toList();
+      final trailList =
+          trails.docs.map((doc) => Trail.fromSnapshot(doc)).toList();
       setState(() {
         _allTrails = trailList;
         _filteredTrails = trailList;
@@ -81,28 +83,18 @@ class _SearchPageState extends State<SearchPage> {
   void _filterTrails(String searchText) {
     if (searchText.isEmpty) {
       setState(() {
-        _filteredTrails = _allTrails; 
+        _filteredTrails = _allTrails;
       });
       return;
     }
     setState(() {
-      _filteredTrails = _allTrails.where((trail) => trail.name.toLowerCase().contains(searchText.toLowerCase())).toList();
+      _filteredTrails = _allTrails
+          .where((trail) =>
+              trail.name.toLowerCase().contains(searchText.toLowerCase()))
+          .toList();
     });
   }
 }
-
-// class Trail {
-//   final String name;
-//   final String description;
-//   final String trailId;
-//   final List<LatLng> coordinates; 
-
-//   Trail.fromSnapshot(DocumentSnapshot snapshot)
-//       : name = snapshot.get('name'),
-//         description = snapshot.get('description'),
-//         trailId = snapshot.get('trailId'),
-//         coordinates = snapshot.get('coordinates');
-// }
 
 class TrailListItem extends StatelessWidget {
   final Trail trail;
@@ -112,10 +104,16 @@ class TrailListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: trail.image != null
+          ? CircleAvatar(
+              backgroundImage: NetworkImage(trail.image),
+            )
+          : Placeholder(child: Icon(Icons.image_not_supported)),
       title: Text(trail.name),
       subtitle: Row(
         children: [
           Text(trail.description),
+          Spacer(),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -126,10 +124,9 @@ class TrailListItem extends StatelessWidget {
                   ),
                 );
               },
-              child: Text("View more details")),
+              child: Text("View trail")),
         ],
       ),
-      
     );
   }
 }
