@@ -24,13 +24,35 @@ PreferredSizeWidget header(BuildContext context, BoxConstraints constraints, dou
         ),
       ),
     ),
+      leading: Builder(
+      builder: (BuildContext context) {
+        if (ModalRoute.of(context)?.canPop ?? false) {
+          return IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          );
+        } else {
+          return IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            },
+          );
+        }
+      },
+    ),
     toolbarHeight: 50,
     backgroundColor: Color.fromRGBO(166, 132, 119, 1),
     actions: [
       if (FirebaseAuth.instance.currentUser != null) IconButton(
         icon: const Icon(Icons.map),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => MapPage(),
@@ -41,7 +63,7 @@ PreferredSizeWidget header(BuildContext context, BoxConstraints constraints, dou
       if (FirebaseAuth.instance.currentUser != null) IconButton(
         icon: const Icon(Icons.search),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => SearchPage(),
@@ -52,7 +74,7 @@ PreferredSizeWidget header(BuildContext context, BoxConstraints constraints, dou
       if (FirebaseAuth.instance.currentUser != null) IconButton(
         icon: const Icon(Icons.person),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => ProfilePage(),
