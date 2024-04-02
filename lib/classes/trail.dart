@@ -6,19 +6,22 @@ class Trail {
   final String name;
   final String description;
   final List<LatLng> coordinates;
+  final String image;
 
   Trail({
     required this.trailId,
     required this.name,
     required this.description,
     required this.coordinates,
+    required this.image,
   });
 
   Trail.fromSnapshot(DocumentSnapshot snapshot)
       : trailId = snapshot.id,
         name = snapshot.get('name'),
         description = snapshot.get('description'),
-        coordinates = _convertToLatLng(snapshot.get('coordinates'));
+        coordinates = _convertToLatLng(snapshot.get('coordinates')),
+        image = snapshot.get('image');
 
   static List<LatLng> _convertToLatLng(List<dynamic> coordinates){
     List<GeoPoint> geoPoints =
