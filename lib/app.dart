@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// ignore: unused_import
 import 'auth_gate.dart';
-import 'package:GoTrail/tips/tips.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
