@@ -100,19 +100,26 @@ class TrailListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: trail.image != null
-          ? CircleAvatar(
-              backgroundImage: NetworkImage(trail.image),
-            )
-          : Placeholder(child: Icon(Icons.image_not_supported)),
-      title: Text(trail.name),
-      subtitle: Row(
-        children: [
-          Text(trail.description),
-          Spacer(),
-          ElevatedButton(
-              onPressed: () {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TrailDetailsPage(trail),
+          ),
+        );
+      },
+      child: ListTile(
+        leading: trail.image != null
+            ? CircleAvatar(
+                backgroundImage: NetworkImage(trail.image),
+              )
+            : Placeholder(child: Icon(Icons.image_not_supported)),
+        title: Text(trail.name),
+        subtitle: Row(
+          children: [
+            InkWell(
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -120,8 +127,21 @@ class TrailListItem extends StatelessWidget {
                   ),
                 );
               },
-              child: Text("View trail")),
-        ],
+              child: Text(trail.description),
+            ),
+            Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TrailDetailsPage(trail),
+                    ),
+                  );
+                },
+                child: Text("View trail")),
+          ],
+        ),
       ),
     );
   }
