@@ -145,7 +145,7 @@ class TrackingPageState extends State<TrackingPage> {
               mapController: mapController,
               options: MapOptions(
                 initialCenter: widget.trail.coordinates[0],
-                initialZoom: 14,
+                initialZoom: 18,
               ),
               children: [
                 TileLayer(
@@ -190,18 +190,14 @@ class TrackingPageState extends State<TrackingPage> {
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
-            heroTag: "start-tracking",
-            onPressed: startTracking,
-            tooltip: 'Start tracking',
-            child: Icon(Icons.play_arrow)),
+            heroTag: "toggle-tracking",
+            onPressed: isTracking ? stopTracking : startTracking,
+            backgroundColor: isTracking ? Colors.blueGrey[800] : null,
+            tooltip: isTracking ? 'Stop tracking' : 'Start tracking',
+            child: isTracking ? Icon(Icons.pause) : Icon(Icons.play_arrow)),
         SizedBox(height: 16),
-        FloatingActionButton(
-            heroTag: "stop-tracking",
-            onPressed: stopTracking,
-            tooltip: 'Stop tracking',
-            child: Icon(Icons.stop)),
-        SizedBox(height: 16),
-        Text('${(displayDistance).toStringAsFixed(0)}m'),
+        Text(
+            isTracking ? '${(displayDistance).toStringAsFixed(0)}m' : "paused"),
         SizedBox(height: 32),
       ]),
     );

@@ -74,6 +74,19 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
     }
   }
 
+  navigateToReviewPage(BuildContext context) async {
+    final reLoadPage = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReviewPage(widget.trail)),
+    );
+
+    if (reLoadPage) {
+      print("reloading page...");
+      fetchTrailReviews();
+      checkUserReviewedTrail();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,9 +101,8 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 maxHeight: 50,
               ),
               0),
-          Text(widget.trail.name),
           SizedBox(height: 10),
-          Text(widget.trail.description),
+          Text('${widget.trail.name} - ${widget.trail.description}'),
           SizedBox(height: 10),
           ElevatedButton(
               onPressed: () {
@@ -102,6 +114,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 );
               },
               child: Text('Start Trail')),
+          SizedBox(height: 10),
           Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -158,14 +171,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 SizedBox(width: 10),
                 _canReview
                     ? ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ReviewPage(widget.trail),
-                            ),
-                          );
-                        },
+                        onPressed: () => navigateToReviewPage(context),
                         child: Text('Add review'))
                     : Container(),
               ],
