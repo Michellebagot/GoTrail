@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:GoTrail/trail_view/trail_details_page.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:GoTrail/classes/trail.dart';
 
 class SearchPage extends StatefulWidget {
@@ -27,7 +25,6 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
       body: Column(
         children: [
           header(
@@ -116,7 +113,6 @@ class TrailListItem extends StatelessWidget {
           Spacer(),
           ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
