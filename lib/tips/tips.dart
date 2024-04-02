@@ -34,24 +34,25 @@ class RandomTip extends StatefulWidget {
 class _RandomTipState extends State<RandomTip> {
   List _tip = [];
   int _currentIndex = 0;
+  Timer? _timer;
 
   Future<void> _getRandomTip(loadingObj) async {
-    _tip.add(loadingObj);
-    final tipsCollection = FirebaseFirestore.instance.collection('tips');
-    final querySnapshot = await tipsCollection.get();
-    final allTips = querySnapshot.docs.map((tip) => _tip.add(tip.data()));
-    if (querySnapshot.docs.isNotEmpty) {
-      setState(() {
-        print(allTips);
-      });
-    }
+  _tip.add(loadingObj);
+  final tipsCollection = FirebaseFirestore.instance.collection('tips');
+  final querySnapshot = await tipsCollection.get();
+  final allTips = querySnapshot.docs.map((tip) => tip.data()).toList();
+  if (querySnapshot.docs.isNotEmpty) {
+    setState(() {
+      _tip.addAll(allTips);
+    });
   }
+}
 
   @override
   void initState() {
     super.initState();
     _getRandomTip(tipLoadingObj);
-    Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
       setState(() {
         _currentIndex = (Random().nextInt(_tip.length)) % _tip.length;
       });
@@ -60,47 +61,52 @@ class _RandomTipState extends State<RandomTip> {
 
   @override
   void dispose() {
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    var tip = _tip[_currentIndex]; 
+Widget build(BuildContext context) {
+  var tip = _tip[_currentIndex];
 
-    if (_currentIndex == 0) {
-      _currentIndex + 1;
-    }
- 
-    return 
-    SizedBox(
-      height: 275,
-      width: 800,
-    child: Card(
-        margin: EdgeInsets.all(50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
-        color: Color.fromRGBO(166, 159, 119, 1),
-        child: Container(
-          
-            padding: EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Text(tip['tipTitle'],
-                      textAlign: TextAlign.center, style: titleStyle),
-                ),
-                Flexible(
-                  child: Text(
-                    tip['tipDetail'],
-                    textAlign: TextAlign.center,
-                    style: detailStyle,
-                  ),
-                ),
-              ],
-            ))),
-    );
+  if (_currentIndex == 0) {
+    _currentIndex++;
   }
+
+  return SizedBox(
+    height: 275,
+    width: 800,
+    child: Card(
+      margin: EdgeInsets.all(50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      ),
+      color: Color.fromRGBO(166, 159, 119, 1),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Flexible(
+              child: Text(
+                tip['tipTitle'],
+                textAlign: TextAlign.center,
+                style: titleStyle,
+              ),
+            ),
+            Flexible(
+              child: Text(
+                tip['tipDetail'],
+                textAlign: TextAlign.center,
+                style: detailStyle,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
+  }
+
