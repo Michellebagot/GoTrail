@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'package:GoTrail/signin/signin.dart';
 import 'package:GoTrail/signin/terms_conditions.dart';
-import 'package:GoTrail/header_bar/header_bar.dart';
 
 class AuthGate extends StatelessWidget {
  const AuthGate({super.key});
+ 
+  get header => null;
 
  @override
  Widget build(BuildContext context) {
    return StreamBuilder<User?>(
      stream: FirebaseAuth.instance.authStateChanges(),
      builder: (context, snapshot) {
+  
        if (!snapshot.hasData) {
          return SignInScreen(
            providers: [
@@ -28,7 +30,4 @@ class AuthGate extends StatelessWidget {
      },
    );
  }
-
-
-
 }
