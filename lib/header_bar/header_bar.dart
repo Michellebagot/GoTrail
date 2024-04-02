@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:GoTrail/profile/profile_page.dart';
 import 'package:GoTrail/home.dart';
 import 'package:GoTrail/map_view/map_page.dart';
 import 'package:GoTrail/trail_search/trail_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/profile/profile_page.dart';
 
 Widget header(context, constraints, shrinkOffset) {
   return SizedBox(
@@ -32,38 +32,40 @@ Widget header(context, constraints, shrinkOffset) {
             actions: [
               if (FirebaseAuth.instance.currentUser != null)
                 IconButton(
-                icon: const Icon(Icons.map),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MapPage(),
-                    ),
-                  );
-                },
-              ),
+                  icon: const Icon(Icons.map),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MapPage(),
+                      ),
+                    );
+                  },
+                ),
               if (FirebaseAuth.instance.currentUser != null)
                 IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SearchPage(),
-                    ),
-                  );
-                },
-              ),
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchPage(),
+                      ),
+                    );
+                  },
+                ),
               if (FirebaseAuth.instance.currentUser != null)
                 IconButton(
-                icon: const Icon(Icons.person),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    profilePage(),
-                  );
-                },
-              )
+                  icon: const Icon(Icons.person),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(),
+                      ),
+                    );
+                  },
+                )
             ],
           ),
         ),
