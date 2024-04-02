@@ -50,12 +50,14 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(   
       appBar: AppBar(
         title: Text('TrailBlazer Profile'),
-      ),
-      body:
-       userData != null && trailBlazerData != null ? //
+      ),      
+     body: SingleChildScrollView(
+                child: Column(
+                          children: [
+                            userData != null && trailBlazerData != null ? //
             Column(
             children: [
               Center(
@@ -89,7 +91,11 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
           )
 
           : Center(child: CircularProgressIndicator()), // else Loading screen
-    );
-  }
-}
+                          ],
+                       ),
+           ),
+      );
+   }
+}  
+
 
