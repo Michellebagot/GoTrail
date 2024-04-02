@@ -127,7 +127,11 @@ class ReviewPageState extends State<ReviewPage> {
                         _submitReview();
                       }
                     },
-                    child: Text('Submit'),
+                    child: Text('Submit',                 
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    ),
                   ),
                 ],
               ),

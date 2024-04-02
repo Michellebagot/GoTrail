@@ -154,7 +154,12 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                             ),
                           );
                         },
-                        child: Text('Add review'))
+                        child: Text('Add review',                 
+                        style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+                )
                     : Container(),
               ],
             ),

@@ -102,7 +102,11 @@ class TrailBlazersState extends State<TrailBlazers> {
                  );
                  }
                },
-               child: Text('Confirm'),
+               child: Text('Confirm',                
+               style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
              ),
            ),   
 

@@ -42,7 +42,12 @@ RandomTip(),
                     MaterialPageRoute(builder: (context) => MapPage()),
                   );
                 },
-                child: Text("go to map view")),
+                child: Text("go to map view",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+             ),
 
             // Trail search button
             ElevatedButton(
@@ -53,7 +58,12 @@ RandomTip(),
                     MaterialPageRoute(builder: (context) => SearchPage()),
                   );
                 },
-                child: Text("Search trails")),
+                child: Text("Search trails",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+           ),
             const SignOutButton(),
           ],
         ),
