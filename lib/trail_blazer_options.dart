@@ -19,97 +19,195 @@ class TrailBlazersState extends State<TrailBlazers> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 246, 222, 1),
-       appBar: AppBar( // TODO : need to extract this and replace with header_bar 
-        ),
-
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          
-          children: [
-            Container(
-              padding: const EdgeInsets.all(5),
-              child: Center(child: Text('Choose your TrailBlazer', style: TextStyle(fontSize: 20),))
-              ),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox( 
-                    child: IconButton(
-                      icon: Image.asset('assets/blue_type1.gif'),
-                      iconSize: 1,
-                      onPressed: () {
-                        chosenTrailBlazer = 'water1';
-                        },
-                      ),
-                  )
-                ),
-                Expanded(
-                 child: SizedBox( height: 250, width: 250,
+    return Scaffold(         
+     body: SingleChildScrollView(
+                child: Column(
+                          children: [
+                             Padding(
+       padding: const EdgeInsets.all(25.0),
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.stretch,
+        
+         children: [
+           Container(
+             padding: const EdgeInsets.all(5),
+             child: Center(child: Text('Choose your TrailBlazer', style: TextStyle(fontSize: 20),))
+             ),
+           Row(
+             children: [
+               Expanded(
+                 child: SizedBox(
                    child: IconButton(
-                    icon: Image.asset('assets/green_type1.gif'),
-                    iconSize: 1,
-                    onPressed: () {
-                      chosenTrailBlazer = 'grass1';
-                    },
-                  ),
+                     icon: Image.asset('assets/blue_type1.gif'),
+                     iconSize: 1,
+                     onPressed: () {
+                       chosenTrailBlazer = 'water1';
+                       },
+                     ),
                  )
-                ),
-              ],
-            ),
-            Container(
-              padding: const EdgeInsets.all(5),
-              child: SizedBox( height: 250, width: 250,
-                child: IconButton(
-                  icon: Image.asset('assets/brown_type1.gif'),
-                  iconSize: 50,
-                  onPressed: () {
-                      chosenTrailBlazer = 'mountain1';
-                  },
-                ),
-              )
-            ),
-            Center(
-              child: Text('Give your TrailBlazer a name:', style: TextStyle(fontSize: 20),)),
-            TextField(
-              onChanged:(value){
-                trailBlazerName = value;
-              },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter name here',
-              
-            ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: (){
-                  if (chosenTrailBlazer.isEmpty || trailBlazerName.isEmpty){
-                  showAlertDialog(context);
+               ),
+               Expanded(
+                child: SizedBox( height: 250, width: 250,
+                  child: IconButton(
+                   icon: Image.asset('assets/green_type1.gif'),
+                   iconSize: 1,
+                   onPressed: () {
+                     chosenTrailBlazer = 'grass1';
+                   },
+                 ),
+                )
+               ),
+             ],
+           ),
+           Container(
+             padding: const EdgeInsets.all(5),
+             child: SizedBox( height: 250, width: 250,
+               child: IconButton(
+                 icon: Image.asset('assets/brown_type1.gif'),
+                 iconSize: 50,
+                 onPressed: () {
+                     chosenTrailBlazer = 'mountain1';
+                 },
+               ),
+             )
+           ),
+           Center(
+             child: Text('Give your TrailBlazer a name:', style: TextStyle(fontSize: 20),)),
+           TextField(
+             onChanged:(value){
+               trailBlazerName = value;
+             },
+           decoration: InputDecoration(
+             border: OutlineInputBorder(),
+             hintText: 'Enter name here',
+            
+           ),
+           ),
+           Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: ElevatedButton(
+               onPressed: (){
+                 if (chosenTrailBlazer.isEmpty || trailBlazerName.isEmpty){
+                 showAlertDialog(context);
 
-                  }else{
-                  final userUpdate = db.collection("users").doc(FirebaseAuth.instance.currentUser?.uid);
-                  userUpdate.update({"trailBlazer": chosenTrailBlazer, "trailBlazerName": trailBlazerName}).then(
-                    (value) =>   Navigator.push(
-                    context,
-                    profilePage(),
-                    )
-                  );
-                  }
-                },
-                child: Text('Confirm'),
-              ),
-            ),    
-          ],
-        ),
-      ),
+
+                 }else{
+                 final userUpdate = db.collection("users").doc(FirebaseAuth.instance.currentUser?.uid);
+                 userUpdate.update({"trailBlazer": chosenTrailBlazer, "trailBlazerName": trailBlazerName}).then(
+                   (value) =>   Navigator.push(
+                   context,
+                   profilePage(),
+                   )
+                 );
+                 }
+               },
+               child: Text('Confirm'),
+             ),
+           ),   
+
+         ],
+         ),
+         ),
+         ]
+      )
+    )
     );
   }
 }
+    
+    // Scaffold(
+    //   backgroundColor: Color.fromRGBO(255, 246, 222, 1),
+    //    appBar: AppBar( // TODO : need to extract this and replace with header_bar 
+    //     ),
+
+    //   body: Padding(
+    //     padding: const EdgeInsets.all(25.0),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.stretch,
+          
+    //       children: [
+    //         Container(
+    //           padding: const EdgeInsets.all(5),
+    //           child: Center(child: Text('Choose your TrailBlazer', style: TextStyle(fontSize: 20),))
+    //           ),
+    //         Row(
+    //           children: [
+    //             Expanded(
+    //               child: SizedBox( 
+    //                 child: IconButton(
+    //                   icon: Image.asset('assets/blue_type1.gif'),
+    //                   iconSize: 1,
+    //                   onPressed: () {
+    //                     chosenTrailBlazer = 'water1';
+    //                     },
+    //                   ),
+    //               )
+    //             ),
+    //             Expanded(
+    //              child: SizedBox( height: 250, width: 250,
+    //                child: IconButton(
+    //                 icon: Image.asset('assets/green_type1.gif'),
+    //                 iconSize: 1,
+    //                 onPressed: () {
+    //                   chosenTrailBlazer = 'grass1';
+    //                 },
+    //               ),
+    //              )
+    //             ),
+    //           ],
+    //         ),
+    //         Container(
+    //           padding: const EdgeInsets.all(5),
+    //           child: SizedBox( height: 250, width: 250,
+    //             child: IconButton(
+    //               icon: Image.asset('assets/brown_type1.gif'),
+    //               iconSize: 50,
+    //               onPressed: () {
+    //                   chosenTrailBlazer = 'mountain1';
+    //               },
+    //             ),
+    //           )
+    //         ),
+    //         Center(
+    //           child: Text('Give your TrailBlazer a name:', style: TextStyle(fontSize: 20),)),
+    //         TextField(
+    //           onChanged:(value){
+    //             trailBlazerName = value;
+    //           },
+    //         decoration: InputDecoration(
+    //           border: OutlineInputBorder(),
+    //           hintText: 'Enter name here',
+              
+    //         ),
+    //         ),
+    //         Padding(
+    //           padding: const EdgeInsets.all(8.0),
+    //           child: ElevatedButton(
+    //             onPressed: (){
+    //               if (chosenTrailBlazer.isEmpty || trailBlazerName.isEmpty){
+    //               showAlertDialog(context);
+
+    //               }else{
+    //               final userUpdate = db.collection("users").doc(FirebaseAuth.instance.currentUser?.uid);
+    //               userUpdate.update({"trailBlazer": chosenTrailBlazer, "trailBlazerName": trailBlazerName}).then(
+    //                 (value) =>   Navigator.push(
+    //                 context,
+    //                 profilePage(),
+    //                 )
+    //               );
+    //               }
+    //             },
+    //             child: Text('Confirm'),
+    //           ),
+    //         ),    
+    //       ],
+    //     ),
+    //   ),
+    // );
+
+
+
+
 
 
 showAlertDialog(BuildContext context) {
