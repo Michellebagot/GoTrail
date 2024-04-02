@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:GoTrail/trail_view/trail_details_page.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:GoTrail/classes/trail.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -9,8 +13,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String _searchText = "";
-  List<Trail> _allTrails = []; 
-  List<Trail> _filteredTrails = []; 
+  List<Trail> _allTrails = [];
+  List<Trail> _filteredTrails = [];
 
   final _firestore = FirebaseFirestore.instance;
 
@@ -23,15 +27,23 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Trail Search'),
-      ),
+      appBar: null,
       body: Column(
         children: [
+          header(
+            context,
+            BoxConstraints(
+              minWidth: double.infinity,
+              maxWidth: double.infinity,
+              minHeight: 30,
+              maxHeight: 50,
+            ),
+            0,
+          ),
           TextField(
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
-              hintText: 'Search trails...',
+              hintText: 'Search local trails...',
             ),
             onChanged: (text) {
               setState(() {
@@ -44,7 +56,8 @@ class _SearchPageState extends State<SearchPage> {
             child: _filteredTrails.isNotEmpty
                 ? ListView.builder(
                     itemCount: _filteredTrails.length,
-                    itemBuilder: (context, index) => TrailListItem(_filteredTrails[index]),
+                    itemBuilder: (context, index) =>
+                        TrailListItem(_filteredTrails[index]),
                   )
                 : Center(child: Text('No trails found!')),
           ),
@@ -56,7 +69,8 @@ class _SearchPageState extends State<SearchPage> {
   Future<void> _fetchTrails() async {
     try {
       final trails = await _firestore.collection('trails').get();
-      final trailList = trails.docs.map((doc) => Trail.fromSnapshot(doc)).toList();
+      final trailList =
+          trails.docs.map((doc) => Trail.fromSnapshot(doc)).toList();
       setState(() {
         _allTrails = trailList;
         _filteredTrails = trailList;
@@ -69,24 +83,17 @@ class _SearchPageState extends State<SearchPage> {
   void _filterTrails(String searchText) {
     if (searchText.isEmpty) {
       setState(() {
-        _filteredTrails = _allTrails; 
+        _filteredTrails = _allTrails;
       });
       return;
     }
     setState(() {
-      _filteredTrails = _allTrails.where((trail) => trail.name.toLowerCase().contains(searchText.toLowerCase())).toList();
+      _filteredTrails = _allTrails
+          .where((trail) =>
+              trail.name.toLowerCase().contains(searchText.toLowerCase()))
+          .toList();
     });
   }
-}
-
-class Trail {
-  final String name;
-  final String description;
-
-
-  Trail.fromSnapshot(DocumentSnapshot snapshot)
-      : this.name = snapshot.get('name'),
-        this.description = snapshot.get('description');
 }
 
 class TrailListItem extends StatelessWidget {
@@ -97,8 +104,29 @@ class TrailListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: trail.image != null
+          ? CircleAvatar(
+              backgroundImage: NetworkImage(trail.image),
+            )
+          : Placeholder(child: Icon(Icons.image_not_supported)),
       title: Text(trail.name),
-      subtitle: Text(trail.description),
+      subtitle: Row(
+        children: [
+          Text(trail.description),
+          Spacer(),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrailDetailsPage(trail),
+                  ),
+                );
+              },
+              child: Text("View trail")),
+        ],
+      ),
     );
   }
 }
