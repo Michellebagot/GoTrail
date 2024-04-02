@@ -80,7 +80,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       MaterialPageRoute(builder: (context) => ReviewPage(widget.trail)),
     );
 
-    if (reLoadPage) {
+    if (reLoadPage == true) {
       print("reloading page...");
       fetchTrailReviews();
       checkUserReviewedTrail();
