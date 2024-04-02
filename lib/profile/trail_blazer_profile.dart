@@ -1,3 +1,4 @@
+import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +52,15 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(   
-      appBar: AppBar(
-        title: Text('TrailBlazer Profile'),
-      ),      
+      appBar: header(
+                context,
+                BoxConstraints(
+                  minWidth: double.infinity,
+                  maxWidth: double.infinity,
+                  minHeight: 30,
+                  maxHeight: 50,
+                ),
+                0),      
      body: SingleChildScrollView(
                 child: Column(
                           children: [
