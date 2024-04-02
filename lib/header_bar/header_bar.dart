@@ -55,7 +55,7 @@ PreferredSizeWidget header(BuildContext context, BoxConstraints constraints, dou
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProfilePageMB(),
+              builder: (context) => ProfilePage(),
             ),
           );
         },

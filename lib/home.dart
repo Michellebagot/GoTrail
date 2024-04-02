@@ -2,12 +2,9 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:GoTrail/trail_search/trail_search.dart';
-import 'package:GoTrail/profile/profile_page%20old.dart';
 import 'package:GoTrail/map_view/map_page.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:GoTrail/tips/tips.dart';
 
-import 'package:GoTrail/profile/profile_page.dart';
 
 
 class HomeScreen extends StatelessWidget {
