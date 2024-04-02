@@ -20,10 +20,12 @@ Widget header(context, constraints, shrinkOffset) {
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                 );
               },
-              child: Text(
-                'GoTrail',
-                style: GoogleFonts.balooBhaina2(
-                  fontWeight: FontWeight.bold,
+              child: Center(
+                child: Text(
+                  'GoTrail',
+                  style: GoogleFonts.balooBhaina2(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
