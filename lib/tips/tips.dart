@@ -63,8 +63,6 @@ class _RandomTipState extends State<RandomTip> {
     super.dispose();
   }
 
-  //TODO : fix height when in home/app with other widgets
-
   @override
   Widget build(BuildContext context) {
     var tip = _tip[_currentIndex]; 
@@ -73,13 +71,18 @@ class _RandomTipState extends State<RandomTip> {
       _currentIndex + 1;
     }
  
-    return Card(
+    return 
+    SizedBox(
+      height: 275,
+      width: 800,
+    child: Card(
         margin: EdgeInsets.all(50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         color: Color.fromRGBO(166, 159, 119, 1),
         child: Container(
+          
             padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -97,6 +100,7 @@ class _RandomTipState extends State<RandomTip> {
                   ),
                 ),
               ],
-            )));
+            ))),
+    );
   }
 }
