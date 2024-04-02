@@ -1,8 +1,7 @@
-import 'package:GoTrail/profile/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:GoTrail/profile/trail_blazer_profile.dart';
 
 class TrailBlazers extends StatefulWidget {
   @override
@@ -19,6 +18,7 @@ class TrailBlazersState extends State<TrailBlazers> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(         
      body: SingleChildScrollView(
                 child: Column(
@@ -114,14 +114,12 @@ class TrailBlazersState extends State<TrailBlazers> {
     );
   }
 }
-    
  
 showAlertDialog(BuildContext context) {
-
   // set up the button
   Widget okButton = TextButton(
     child: Text("OK"),
-    onPressed: () { 
+    onPressed: () {
       Navigator.of(context).pop();
     },
   );

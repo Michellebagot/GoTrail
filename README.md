@@ -43,6 +43,7 @@ The following dependences are required for this project
 - firebase_ui_auth: ^1.13.1
 - google_fonts: ^6.2.1
 - flutter_rating_bar: ^4.0.1
+- cached_network_image: ^3.3.1
 
 please ensure documentation is followed when installing these dependencies!
 
