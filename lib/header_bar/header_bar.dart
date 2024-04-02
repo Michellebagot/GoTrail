@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:GoTrail/profile/profile_page.dart';
- 
+
+
+
  Widget header(context, constraints, shrinkOffset) {
 
       return Padding(
@@ -11,6 +13,7 @@ import 'package:GoTrail/profile/profile_page.dart';
             leading: Icon(Icons.menu),
             title: Text('GoTrail',
             style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
+            
             ),
             toolbarHeight: 50,
             backgroundColor: Color.fromRGBO(166, 132, 119, 1),

@@ -1,5 +1,3 @@
-import 'package:GoTrail/trail_blazer_options.dart';
-import 'package:GoTrail/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'auth_gate.dart';

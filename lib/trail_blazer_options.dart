@@ -2,7 +2,7 @@ import 'package:GoTrail/profile/profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class TrailBlazers extends StatefulWidget {
   @override
@@ -22,25 +22,8 @@ class TrailBlazersState extends State<TrailBlazers> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 246, 222, 1),
        appBar: AppBar( // TODO : need to extract this and replace with header_bar 
-            leading: Icon(Icons.menu),
-            title: Text('GoTrail',
-            style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
-            
-            ),
-            toolbarHeight: 50,
-            backgroundColor: Color.fromRGBO(166, 132, 119, 1),
-             actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              Navigator.push(
-                context,
-                profilePage(),
-              );
-            },
-          )
-        ],
-          ),
+        ),
+
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Column(
@@ -54,13 +37,12 @@ class TrailBlazersState extends State<TrailBlazers> {
             Row(
               children: [
                 Expanded(
-        
                   child: SizedBox( 
                     child: IconButton(
-                        icon: Image.asset('assets/blue_type1.gif'),
-                        iconSize: 1,
-                        onPressed: () {
-                          chosenTrailBlazer = 'water1';
+                      icon: Image.asset('assets/blue_type1.gif'),
+                      iconSize: 1,
+                      onPressed: () {
+                        chosenTrailBlazer = 'water1';
                         },
                       ),
                   )
@@ -68,12 +50,12 @@ class TrailBlazersState extends State<TrailBlazers> {
                 Expanded(
                  child: SizedBox( height: 250, width: 250,
                    child: IconButton(
-                        icon: Image.asset('assets/green_type1.gif'),
-                        iconSize: 1,
-                        onPressed: () {
-                           chosenTrailBlazer = 'grass1';
-                        },
-                      ),
+                    icon: Image.asset('assets/green_type1.gif'),
+                    iconSize: 1,
+                    onPressed: () {
+                      chosenTrailBlazer = 'grass1';
+                    },
+                  ),
                  )
                 ),
               ],
@@ -82,12 +64,12 @@ class TrailBlazersState extends State<TrailBlazers> {
               padding: const EdgeInsets.all(5),
               child: SizedBox( height: 250, width: 250,
                 child: IconButton(
-                        icon: Image.asset('assets/brown_type1.gif'),
-                        iconSize: 50,
-                        onPressed: () {
-                           chosenTrailBlazer = 'water1';
-                        },
-                      ),
+                  icon: Image.asset('assets/brown_type1.gif'),
+                  iconSize: 50,
+                  onPressed: () {
+                      chosenTrailBlazer = 'mountain1';
+                  },
+                ),
               )
             ),
             Center(
@@ -112,23 +94,21 @@ class TrailBlazersState extends State<TrailBlazers> {
                   }else{
                   final userUpdate = db.collection("users").doc(FirebaseAuth.instance.currentUser?.uid);
                   userUpdate.update({"trailBlazer": chosenTrailBlazer, "trailBlazerName": trailBlazerName}).then(
-                      (value) =>   Navigator.push(
-                  context,
-                  profilePage(),
-                ));
-
-                }
-                  
+                    (value) =>   Navigator.push(
+                    context,
+                    profilePage(),
+                    )
+                  );
+                  }
                 },
-                 child: Text('Confirm'),
-                 ),
+                child: Text('Confirm'),
+              ),
             ),    
           ],
         ),
       ),
     );
   }
-  
 }
 
 
@@ -144,7 +124,7 @@ showAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Error!"),
+    title: Text("Error"),
     content: Text("Please select your TrailBlazer and enter a Name."),
     actions: [
       okButton,

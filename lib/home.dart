@@ -12,26 +12,7 @@ class HomeScreen extends StatelessWidget {
   
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 246, 222, 1),
-       appBar: AppBar( // TODO : need to extract this and replace with header_bar 
-            leading: Icon(Icons.menu),
-            title: Text('GoTrail',
-            style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
-            
-            ),
-            toolbarHeight: 50,
-            backgroundColor: Color.fromRGBO(166, 132, 119, 1),
-             actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              Navigator.push(
-                context,
-                profilePage(),
-              );
-            },
-          )
-        ],
-          ),
+       appBar: appBarMethod(context),
       body: Center(
         child: Column(
           children: [
@@ -45,6 +26,29 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  AppBar appBarMethod(BuildContext context) {
+    return AppBar( // TODO : need to extract this and replace with header_bar 
+          leading: Icon(Icons.menu),
+          title: Text('GoTrail',
+          style: GoogleFonts.balooBhaina2(fontWeight: FontWeight.bold,),
+          
+          ),
+          toolbarHeight: 50,
+          backgroundColor: Color.fromRGBO(166, 132, 119, 1),
+           actions: [
+        IconButton(
+          icon: const Icon(Icons.person),
+          onPressed: () {
+            Navigator.push(
+              context,
+              profilePage(),
+            );
+          },
+        )
+      ],
+        );
   }
 
 
