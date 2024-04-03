@@ -5,9 +5,7 @@ import 'home.dart';
 import 'package:GoTrail/signin/signin.dart';
 import 'package:GoTrail/signin/terms_conditions.dart';
 
-
 class AuthGate extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
