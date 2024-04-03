@@ -1,4 +1,6 @@
+import 'package:GoTrail/auth_gate.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
   }
-  
+
   void avatarChange() {
     showDialog(
       context: context,
@@ -171,14 +173,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: header(
-                context,
-                BoxConstraints(
-                  minWidth: double.infinity,
-                  maxWidth: double.infinity,
-                  minHeight: 30,
-                  maxHeight: 50,
-                ),
-                0),
+          context,
+          BoxConstraints(
+            minWidth: double.infinity,
+            maxWidth: double.infinity,
+            minHeight: 30,
+            maxHeight: 50,
+          ),
+          0),
       body: Center(
         child: Column(
           children: [
