@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:GoTrail/classes/trail.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:GoTrail/review_page/review_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/classes/trail.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/review_page/review_page.dart';
+
 import 'package:GoTrail/tracking_page/tracking_page.dart';
 import 'package:latlong2/latlong.dart';
+
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
@@ -43,8 +45,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       int rating = review['rating'].toInt();
       totalRating += rating;
     }
-    double averageRating = totalRating / reviews.length;
-    return averageRating;
+    return totalRating / reviews.length;
   }
 
   Future<void> checkUserReviewedTrail() async {
@@ -77,6 +78,11 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
     }
   }
 
+
+  String _getDisplayName(QueryDocumentSnapshot review) {
+    final userName = review['userName'];
+    return (userName == null || userName.isEmpty) ? review['userId'] : userName;
+
   navigateToReviewPage(BuildContext context) async {
     final reLoadPage = await Navigator.push(
       context,
@@ -88,10 +94,15 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       fetchTrailReviews();
       checkUserReviewedTrail();
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)?.isCurrent ?? false) {
+      fetchTrailReviews();
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -185,8 +196,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               itemCount: reviews.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(reviews[index]['userId']),
-                  // TODO: replace with user details when user profiles are implemented
+                  title: Text(_getDisplayName(reviews[index])),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
