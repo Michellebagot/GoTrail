@@ -23,6 +23,33 @@ class MyApp extends StatelessWidget {
           titleMedium: GoogleFonts.lexendDeca(),
           titleSmall: GoogleFonts.lexendDeca(),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: Colors.blueGrey,
+                width: 1,
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: Colors.blueGrey,
+                width: 1,
+              )),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                color: Colors.blueGrey,
+                width: 1,
+              )),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+            style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Color.fromRGBO(166, 159, 119, 1),
+          ),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        )),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blueGrey,
           backgroundColor: Color.fromRGBO(255, 246, 222, 1),
@@ -30,7 +57,7 @@ class MyApp extends StatelessWidget {
           accentColor: Color.fromRGBO(166, 132, 119, 1),
         ),
       ),
-       home: const AuthGate(),
+      home: AuthGate(),
     );
   }
 }
