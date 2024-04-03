@@ -28,6 +28,7 @@ class TrackingPageState extends State<TrackingPage> {
   late LocationSettings locationSettings;
   LatLng? lastLocation;
   String? userId;
+  double minDistanceToUpdatePoints = 10.0;
 
   @override
   void initState() {
@@ -59,7 +60,7 @@ class TrackingPageState extends State<TrackingPage> {
             displayDistance += diff;
             distance += diff;
           });
-          if (distance >= 10) {
+          if (distance >= minDistanceToUpdatePoints) {
             _updatePoints();
             distance = 0;
             print("resetting distance to 0 and updating firestore");

@@ -13,7 +13,7 @@ class MapWidget extends StatefulWidget {
 }
 
 class MapWidgetState extends State<MapWidget> {
-  LatLng stainland = LatLng(53.6717, -1.8837);
+  LatLng baitings = LatLng(53.6655, -1.9905);
   GeoJsonParser myGeoJson = GeoJsonParser();
   List<Polyline> polylines = [];
   double radius = 0.1;
@@ -67,7 +67,7 @@ class MapWidgetState extends State<MapWidget> {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        initialCenter: stainland,
+        initialCenter: baitings,
         initialZoom: 12,
       ),
       children: [
@@ -94,20 +94,22 @@ class MapWidgetState extends State<MapWidget> {
                                 children: [
                                   Text(trail.name),
                                   Text(trail.description),
-                            
                                 ]),
                           ),
                           actions: [
-                            ElevatedButton(onPressed: () {
-                              Navigator.of(context, rootNavigator: true).pop('dialog');
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TrailDetailsPage(trail),
-                                ),
-                              );
-                            },
-                            child: Text("View more details")),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop('dialog');
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          TrailDetailsPage(trail),
+                                    ),
+                                  );
+                                },
+                                child: Text("View more details")),
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
