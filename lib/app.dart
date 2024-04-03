@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           accentColor: Color.fromRGBO(166, 132, 119, 1),
         ),
       ),
-       home: const AuthGate(),
+       home: AuthGate(),
     );
   }
 }

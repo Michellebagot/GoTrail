@@ -103,10 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
                 onPressed: () {
                   signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()),
-                  );
                 },
                 child: Text("Sign Out",
                 style: TextStyle(
