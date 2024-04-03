@@ -20,7 +20,7 @@ class MapPage extends StatelessWidget {
           ),
           Expanded(
             child:
-                MapWidget(), // Assuming you want MapWidget to take remaining space
+                MapWidget(),
           ),
         ],
       ),

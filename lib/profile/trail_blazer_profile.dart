@@ -30,10 +30,10 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
     if(userData['pointsEarned']<100){
       pointsRequired = 100-userData['pointsEarned'];
     }
-    else if(userData['pointsEarned']>100 && userData['pointsEarned']<200 ){
+    else if(userData['pointsEarned']>=100 && userData['pointsEarned']<200 ){
       pointsRequired = 200-userData['pointsEarned'];
     }
-    else{
+    else if (userData['pointsEarned']>=200){
       isFinalStage = true;
     }
     if(userData != null){

@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:GoTrail/review_page/review_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:GoTrail/tracking_page/tracking_page.dart';
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
@@ -73,6 +74,19 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
     }
   }
 
+  navigateToReviewPage(BuildContext context) async {
+    final reLoadPage = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReviewPage(widget.trail)),
+    );
+
+    if (reLoadPage == true) {
+      print("reloading page...");
+      fetchTrailReviews();
+      checkUserReviewedTrail();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,9 +101,20 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 maxHeight: 50,
               ),
               0),
-          Text(widget.trail.name),
           SizedBox(height: 10),
-          Text(widget.trail.description),
+          Text('${widget.trail.name} - ${widget.trail.description}'),
+          SizedBox(height: 10),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrackingPage(widget.trail),
+                  ),
+                );
+              },
+              child: Text('Start Trail')),
+          SizedBox(height: 10),
           Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -146,14 +171,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 SizedBox(width: 10),
                 _canReview
                     ? ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ReviewPage(widget.trail),
-                            ),
-                          );
-                        },
+                        onPressed: () => navigateToReviewPage(context),
                         child: Text('Add review'))
                     : Container(),
               ],
