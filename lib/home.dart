@@ -1,11 +1,10 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
-import 'package:GoTrail/trail_search/trail_search.dart';
-import 'package:GoTrail/map_view/map_page.dart';
 import 'package:GoTrail/tips/tips.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/auth_gate.dart';
+import 'package:GoTrail/trail_widget_homepage/trail_widget_homepage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,27 +64,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxHeight: 50,
                 ),
                 0),
-
-            Text(
-              'This is the Home Screen of the App!',
-              style: Theme.of(context).textTheme.displaySmall,
+            Padding(
+              padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              child: Text(
+                'Step Into Adventure',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
             ),
             RandomTip(),
-     
-              ElevatedButton(
-                  onPressed: () {
-                    signOut();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignInScreen()),
-                    );
-                  },
-                  child: Text("Sign Out",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  )
-                         ),
+
+            TrailWidget(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthGate()),
+                  );
+                  signOut();
+                },
+                child: Text("Sign Out",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+           ),
           ],
         ),
       ),

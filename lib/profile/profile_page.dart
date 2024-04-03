@@ -1,4 +1,6 @@
+import 'package:GoTrail/auth_gate.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
