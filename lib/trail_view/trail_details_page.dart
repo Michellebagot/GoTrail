@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/classes/trail.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,23 +13,25 @@ import 'package:GoTrail/tracking_page/tracking_page.dart';
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
-
   TrailDetailsPage(this.trail);
-
+ 
   @override
   TrailDetailsPageState createState() => TrailDetailsPageState();
 }
 
 class TrailDetailsPageState extends State<TrailDetailsPage> {
   List<QueryDocumentSnapshot> reviews = [];
+  
   double rating = 0.0;
   bool _canReview = false;
+  
 
   @override
   void initState() {
     super.initState();
     fetchTrailReviews();
     checkUserReviewedTrail();
+    fetchTrailData();
   }
 
   double calculateAverageRating(List<QueryDocumentSnapshot> reviews) {
@@ -73,7 +77,17 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       print('error fetching reviews: $e');
     }
   }
-
+  //
+  dynamic trailData;
+  Future<void> fetchTrailData() async {
+    
+    var db = FirebaseFirestore.instance;
+    var data = await db.collection("trails").doc(widget.trail.trailId).get();
+      setState(() {
+        trailData = data.data();
+      });
+  }
+  
   navigateToReviewPage(BuildContext context) async {
     final reLoadPage = await Navigator.push(
       context,
@@ -86,7 +100,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       checkUserReviewedTrail();
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,6 +166,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               ),
             ),
           ),
+         
           Text('Average rating: ${rating.toStringAsFixed(1)} / 5'),
           RatingBarIndicator(
             rating: rating,
@@ -163,6 +178,22 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
             itemSize: 20.0,
             direction: Axis.horizontal,
           ),
+
+///////
+          SizedBox(height: 8.0,),
+           Center(
+            child: Text('Difficulty: ${widget.trail.difficulty}')
+           ),
+           Center(
+            child: Text('Average Time: ${widget.trail.avgTime.toString()}')
+           ),
+           Center(
+            child: Text('Total Distance: ${widget.trail.distance}')
+           ),
+          //  Center(
+          //   child: Text('Elevation: ${widget.trail.difficulty}')
+          //  ),
+          SizedBox(height: 15.0,),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

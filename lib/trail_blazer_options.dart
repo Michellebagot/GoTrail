@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/profile/trail_blazer_profile.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TrailBlazers extends StatefulWidget {
   @override
@@ -21,6 +22,15 @@ class TrailBlazersState extends State<TrailBlazers> {
     @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          'GoTrail',
+          style: GoogleFonts.balooBhaina2(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
