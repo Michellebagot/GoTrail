@@ -29,15 +29,6 @@ class MyApp extends StatelessWidget {
           cardColor: Color.fromRGBO(166, 159, 119, 1),
           accentColor: Color.fromRGBO(166, 132, 119, 1),
         ),
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //   style: ButtonStyle(
-        //   textStyle: MaterialStateProperty.all<TextStyle>(
-        //     TextStyle(
-        //       color: Colors.black,
-        //     ),
-        //   ),
-        //   ),
-        // ),
       ),
        home: const AuthGate(),
     );

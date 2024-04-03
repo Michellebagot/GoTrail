@@ -42,7 +42,7 @@ RandomTip(),
                     MaterialPageRoute(builder: (context) => MapPage()),
                   );
                 },
-                child: Text("go to map view",
+                child: Text("Go to Map View",
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -58,7 +58,7 @@ RandomTip(),
                     MaterialPageRoute(builder: (context) => SearchPage()),
                   );
                 },
-                child: Text("Search trails",
+                child: Text("Search Trails",
                 style: TextStyle(
                   color: Colors.black,
                 ),
