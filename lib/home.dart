@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
-import 'package:GoTrail/trail_search/trail_search.dart';
-import 'package:GoTrail/map_view/map_page.dart';
-import 'package:GoTrail/map_view/map_widget.dart';
 import 'package:GoTrail/tips/tips.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
