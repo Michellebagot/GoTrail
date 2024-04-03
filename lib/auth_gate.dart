@@ -6,28 +6,22 @@ import 'package:GoTrail/signin/signin.dart';
 import 'package:GoTrail/signin/terms_conditions.dart';
 
 class AuthGate extends StatelessWidget {
- const AuthGate({super.key});
- 
-  get header => null;
-
- @override
- Widget build(BuildContext context) {
-   return StreamBuilder<User?>(
-     stream: FirebaseAuth.instance.authStateChanges(),
-     builder: (context, snapshot) {
-  
-       if (!snapshot.hasData) {
-         return SignInScreen(
-           providers: [
-             EmailAuthProvider(),
-           ],
-           headerBuilder: header,
-           subtitleBuilder: signin,
-           footerBuilder: termsConditions,
-         );
-       }
-       return const HomeScreen();
-     },
-   );
- }
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return SignInScreen(
+            providers: [
+              EmailAuthProvider(),
+            ],
+            subtitleBuilder: signin,
+            footerBuilder: termsConditions,
+          );
+        }
+        return const HomeScreen();
+      },
+    );
+  }
 }

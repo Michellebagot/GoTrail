@@ -1,4 +1,3 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:GoTrail/trail_search/trail_search.dart';
@@ -7,6 +6,7 @@ import 'package:GoTrail/map_view/map_widget.dart';
 import 'package:GoTrail/tips/tips.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/auth_gate.dart';
 import 'package:GoTrail/trail_widget_homepage/trail_widget_homepage.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -79,11 +79,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             RandomTip(),
-
-TrailWidget(),
-
-
-            const SignOutButton(),
+            TrailWidget(),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AuthGate()),
+                  );
+                  signOut();
+                },
+                child: Text("Sign Out",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+           ),
 
           ],
         ),
