@@ -1,3 +1,4 @@
+import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,24 +21,36 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
     fetchUserData();
   }
 
-  void fetchUserData() async {
-    var db = FirebaseFirestore.instance;
-    var data = await db.collection("users").doc(FirebaseAuth.instance.currentUser?.uid).get();
-    setState(() {
-      userData = data.data();
-    });
-    if(userData['pointsEarned']<100){
-      pointsRequired = 100-userData['pointsEarned'];
+void fetchUserData() async {
+  try {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var db = FirebaseFirestore.instance;
+      var data = await db.collection("users").doc(user.uid).get();
+      if (data.exists) {
+        setState(() {
+          userData = data.data();
+        });
+      }
+
+        if (userData['pointsEarned'] < 100) {
+          pointsRequired = 100 - userData['pointsEarned'];
+        } else if (userData['pointsEarned'] >= 100 &&
+            userData['pointsEarned'] < 200) {
+          pointsRequired = 200 - userData['pointsEarned'];
+        } else if (userData['pointsEarned'] >= 200) {
+          isFinalStage = true;
+        }
+
+        if (userData != null) {
+          fetchtrailBlazerData(userData['trailBlazer']);
+        }
+      } else {
+        print("User document not found");
+      }
+    } catch (e) {
+      print(e);
     }
-    else if(userData['pointsEarned']>100 && userData['pointsEarned']<200 ){
-      pointsRequired = 200-userData['pointsEarned'];
-    }
-    else{
-      isFinalStage = true;
-    }
-    if(userData != null){
-      fetchtrailBlazerData(userData['trailBlazer']);
-    } 
   }
   
   void fetchtrailBlazerData(trailBlazer) async {
@@ -51,13 +64,19 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(   
-      appBar: AppBar(
-        title: Text('TrailBlazer Profile'),
-      ),      
+      appBar: header(
+                context,
+                BoxConstraints(
+                  minWidth: double.infinity,
+                  maxWidth: double.infinity,
+                  minHeight: 30,
+                  maxHeight: 50,
+                ),
+                0),      
      body: SingleChildScrollView(
                 child: Column(
                           children: [
-                            userData != null && trailBlazerData != null ? //
+                            userData != null && trailBlazerData != null ?
             Column(
             children: [
               Center(

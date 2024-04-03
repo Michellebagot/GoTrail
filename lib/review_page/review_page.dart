@@ -62,8 +62,7 @@ class ReviewPageState extends State<ReviewPage> {
         _rating = 0;
         _comment = '';
       });
-      // Navigator.of(context).pop();
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

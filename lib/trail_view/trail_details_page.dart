@@ -8,6 +8,10 @@ import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:GoTrail/review_page/review_page.dart';
 
+import 'package:GoTrail/tracking_page/tracking_page.dart';
+import 'package:latlong2/latlong.dart';
+
+
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
 
@@ -21,10 +25,12 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
   List<QueryDocumentSnapshot> reviews = [];
   double rating = 0.0;
   bool _canReview = false;
+  LatLngBounds bounds = LatLngBounds.fromPoints([LatLng(0, 0)]);
 
   @override
   void initState() {
     super.initState();
+    bounds = LatLngBounds.fromPoints(widget.trail.coordinates);
     fetchTrailReviews();
     checkUserReviewedTrail();
   }
@@ -72,9 +78,23 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
     }
   }
 
+
   String _getDisplayName(QueryDocumentSnapshot review) {
     final userName = review['userName'];
     return (userName == null || userName.isEmpty) ? review['userId'] : userName;
+
+  navigateToReviewPage(BuildContext context) async {
+    final reLoadPage = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReviewPage(widget.trail)),
+    );
+
+    if (reLoadPage == true) {
+      print("reloading page...");
+      fetchTrailReviews();
+      checkUserReviewedTrail();
+    }
+
   }
 
   @override
@@ -95,17 +115,28 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 maxHeight: 50,
               ),
               0),
-          Text(widget.trail.name),
           SizedBox(height: 10),
-          Text(widget.trail.description),
+          Text('${widget.trail.name} - ${widget.trail.description}'),
+          SizedBox(height: 10),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrackingPage(widget.trail),
+                  ),
+                );
+              },
+              child: Text('Start Trail')),
+          SizedBox(height: 10),
           Center(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 300,
               child: FlutterMap(
                 options: MapOptions(
-                  initialCenter: widget.trail.coordinates[0],
-                  initialZoom: 14,
+                  initialCameraFit: CameraFit.bounds(
+                      bounds: bounds, padding: EdgeInsets.all(8.0)),
                 ),
                 children: [
                   TileLayer(
@@ -154,14 +185,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 SizedBox(width: 10),
                 _canReview
                     ? ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ReviewPage(widget.trail),
-                            ),
-                          );
-                        },
+                        onPressed: () => navigateToReviewPage(context),
                         child: Text('Add review'))
                     : Container(),
               ],
