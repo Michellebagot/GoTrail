@@ -199,11 +199,19 @@ class _ProfilePageState extends State<ProfilePage> {
             Text("Points Earned: $pointsEarned"),
             ElevatedButton(
               onPressed: avatarChange,
-              child: Text("Change your Avatar"),
+              child: Text("Change your Avatar",
+              style: TextStyle(
+                  color: Colors.black,
+                ),
+                ),
             ),
             ElevatedButton(
               onPressed: accountDetailsChange,
-              child: Text("Change your Account Details"),
+              child: Text("Change your Account Details",                
+              style: TextStyle(
+                  color: Colors.black,
+                ),
+                ),
             ),
             if (trailBlazerName != '')
               ElevatedButton(
@@ -214,7 +222,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: (context) => TrailBlazerProfile()),
                   );
                 },
-                child: Text('View TrailBlazer'),
+                child: Text('View TrailBlazer',                 
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                ),
               ),
             if (trailBlazerName == '')
               ElevatedButton(
@@ -224,7 +236,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     MaterialPageRoute(builder: (context) => TrailBlazers()),
                   );
                 },
-                child: Text('Choose trailBlazer'),
+                child: Text('Choose trailBlazer',                 
+                style: TextStyle(
+                  color: Colors.black,
+                ),),
               ),
           ],
         ),

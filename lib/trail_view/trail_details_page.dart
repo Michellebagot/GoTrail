@@ -183,8 +183,21 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 SizedBox(width: 10),
                 _canReview
                     ? ElevatedButton(
-                        onPressed: () => navigateToReviewPage(context),
-                        child: Text('Add review'))
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReviewPage(widget.trail),
+                            ),
+                          );
+                        },
+                        child: Text('Add review',                 
+                        style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+                )
+
                     : Container(),
               ],
             ),

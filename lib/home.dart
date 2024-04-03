@@ -74,7 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => MapPage()),
                   );
                 },
-                child: Text("go to map view")),
+                child: Text("Go to Map View",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+             ),
 
             // Trail search button
             ElevatedButton(
@@ -85,7 +90,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => SearchPage()),
                   );
                 },
-                child: Text("Search trails")),
+                child: Text("Search Trails",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+           ),
             const SignOutButton(),
           ],
         ),

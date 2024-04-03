@@ -98,7 +98,7 @@ class TrailBlazersState extends State<TrailBlazers> {
                     iconSize: 50.0,
                     onPressed: () {
                       chosenTrailBlazer = 'mountain1';
-
+                      
                       // Trailblazer sizing addressed
                     },
                   ),
@@ -141,13 +141,18 @@ class TrailBlazersState extends State<TrailBlazers> {
                     });
                   }
                 },
-                child: Text('Confirm'),
+                child: Text('Confirm', 
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                           ),
               ),
             ),
           ],
         ),
       ),
     ])));
+
   }
 }
 

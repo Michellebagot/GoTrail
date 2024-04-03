@@ -130,16 +130,23 @@ class TrailListItem extends StatelessWidget {
               child: Text(trail.description),
             ),
             Spacer(),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TrailDetailsPage(trail),
-                    ),
-                  );
-                },
-                child: Text("View trail")),
+           ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TrailDetailsPage(trail),
+      ),
+    );
+  },
+  child: Text(
+    "View trail", 
+    style: TextStyle(
+      color: Colors.black,
+    ),
+  ),
+)
+
           ],
         ),
       ),
