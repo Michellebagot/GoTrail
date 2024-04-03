@@ -13,6 +13,11 @@ class TrailBlazersState extends State<TrailBlazers> {
 
   List<QueryDocumentSnapshot> data = [];
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   var chosenTrailBlazer = '';
   var trailBlazerName = '';
 
@@ -142,7 +147,7 @@ class TrailBlazersState extends State<TrailBlazers> {
     );
   }
 }
- 
+
 showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
