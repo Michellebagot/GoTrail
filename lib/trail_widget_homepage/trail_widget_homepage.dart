@@ -1,7 +1,9 @@
+import 'package:GoTrail/classes/trail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
+import 'package:GoTrail/trail_view/trail_details_page.dart';
 
 TextStyle titleStyle = TextStyle(
   fontFamily: GoogleFonts.balooBhaina2().fontFamily,
@@ -25,12 +27,15 @@ class TrailWidget extends StatefulWidget {
 }
 
 class _TrailWidgetState extends State<TrailWidget> {
+  late Trail trailId;
   late String trailImage;
   late String trailTitle;
   late String trailDescription;
   late int trailDistance;
   late String trailDifficulty;
   bool isLoading = true;
+
+  late Trail trail;
 
   @override
   void initState() {
@@ -42,87 +47,99 @@ class _TrailWidgetState extends State<TrailWidget> {
     QuerySnapshot collection =
         await FirebaseFirestore.instance.collection('trails').get();
     var random = Random().nextInt(collection.docs.length);
-    DocumentSnapshot randomDoc = collection.docs[random];
+    DocumentSnapshot randomTrail = collection.docs[random];
     setState(() {
-      trailImage = randomDoc['image'];
-      trailTitle = randomDoc['name'];
-      trailDescription = randomDoc['description'];
-      trailDistance = randomDoc['distance'];
-      trailDifficulty = randomDoc['difficulty'];
+      trail = Trail.fromSnapshot(randomTrail);
+      trailImage = randomTrail['image'];
+      trailTitle = randomTrail['name'];
+      trailDescription = randomTrail['description'];
+      trailDistance = randomTrail['distance'];
+      trailDifficulty = randomTrail['difficulty'];
       isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 275,
-      width: 800,
-      child: Card(
-        margin: EdgeInsets.all(50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: Color.fromRGBO(166, 159, 119, 1),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 30.0),
-                child: CircleAvatar(
-                  radius: 70,
-                  child: ClipOval(
-                    child: isLoading
-                        ? CircularProgressIndicator()
-                        : Image.network(
-                            trailImage,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
+    return GestureDetector(
+        onTap: () {
+          if (trail != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TrailDetailsPage(trail),
+              ),
+            );
+          }
+        },
+        child: SizedBox(
+          height: 275,
+          width: 800,
+          child: Card(
+            margin: EdgeInsets.all(50),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            color: Color.fromRGBO(166, 159, 119, 1),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30.0),
+                    child: CircleAvatar(
+                      radius: 70,
+                      child: ClipOval(
+                        child: isLoading
+                            ? CircularProgressIndicator()
+                            : Image.network(
+                                trailImage,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
+                      ),
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10),
+                        isLoading
+                            ? CircularProgressIndicator()
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Your Selected Trail - ${trailTitle ?? 'Loading...'}',
+                                    style: titleStyle,
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    trailDescription ?? 'Loading...',
+                                    style: detailStyle,
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    'Distance: ${trailDistance ?? 'Loading...'}m',
+                                    style: detailStyle,
+                                  ),
+                                  Text(
+                                    'Difficulty: ${trailDifficulty ?? 'Loading...'}',
+                                    style: detailStyle,
+                                  ),
+                                ],
+                              ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 10),
-                    isLoading
-                        ? CircularProgressIndicator()
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Your Selected Trail - ${trailTitle ?? 'Loading...'}',
-                                style: titleStyle,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                trailDescription ?? 'Loading...',
-                                style: detailStyle,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Distance: ${trailDistance ?? 'Loading...'}m',
-                                style: detailStyle,
-                              ),
-                              Text(
-                                'Difficulty: ${trailDifficulty ?? 'Loading...'}',
-                                style: detailStyle,
-                              ),
-                            ],
-                          ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
