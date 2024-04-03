@@ -79,14 +79,20 @@ void fetchUserData() async {
                             userData != null && trailBlazerData != null ?
             Column(
             children: [
-              Center(
-                  child: Text('${userData['trailBlazerName']}',
-                  style: TextStyle(fontSize: 40.0),),
-                ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Center(
+                    child: Text('${userData['trailBlazerName']}',
+                    style: TextStyle(fontSize: 40.0),),
+                  ),
+              ),
 
               Container(
                 decoration: BoxDecoration(
-                   color: Color.fromARGB(255, 6, 124, 156),
+                   image : DecorationImage(
+                    image: AssetImage('assets/background.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                   borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
                 margin: EdgeInsets.all(25.0),
@@ -94,17 +100,29 @@ void fetchUserData() async {
                   child: Image.asset('${trailBlazerData['path']}.gif') ,
                 ),
               ),
-              isFinalStage == false ? Center( 
-                child: Text('Points Until Next Stage: $pointsRequired'),
-              ): Text('You have fully evolved'),
-              Center(
-                child: Text('Current Points: ${userData['pointsEarned']}') ,
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: isFinalStage == false ? Center( 
+                  child: Text('Points Until Next Stage: $pointsRequired'),
+                ): Text('You have fully evolved'),
               ),
-              Center(
-                child: Text('Type: ${trailBlazerData['type']}') ,
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text('Current Points: ${userData['pointsEarned']}') ,
+                ),
               ),
-              Center(
-                child: Text('Stage: ${trailBlazerData['stage']}') ,
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text('Type: ${trailBlazerData['type']}') ,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text('Stage: ${trailBlazerData['stage']}') ,
+                ),
               )
             ],
           )

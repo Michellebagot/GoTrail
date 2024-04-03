@@ -71,49 +71,21 @@ class _HomeScreenState extends State<HomeScreen> {
               style: Theme.of(context).textTheme.displaySmall,
             ),
             RandomTip(),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MapPage()),
-                  );
-                },
-                child: Text("Go to Map View",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                )
-             ),
-
-            // Trail search button
-            ElevatedButton(
-                onPressed: () {
-                  print("hello");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SearchPage()),
-                  );
-                },
-                child: Text("Search Trails",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                )
-           ),
-            ElevatedButton(
-                onPressed: () {
-                  signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()),
-                  );
-                },
-                child: Text("Sign Out",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                )
-           ),
+     
+              ElevatedButton(
+                  onPressed: () {
+                    signOut();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignInScreen()),
+                    );
+                  },
+                  child: Text("Sign Out",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  )
+                         ),
           ],
         ),
       ),

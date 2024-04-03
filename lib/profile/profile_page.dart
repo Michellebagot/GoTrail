@@ -181,68 +181,94 @@ class _ProfilePageState extends State<ProfilePage> {
             maxHeight: 50,
           ),
           0),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              "Hey $userName! Welcome to your Profile",
-            ),
-            SizedBox(
-              width: 300,
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: ClipOval(
-                  child: Image.asset(
-                    selectedImage,
+            Center(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 15, bottom: 10, left: 10, right: 10),
+                    child: Text(
+                      "Hey $userName! Welcome to your Profile.",
+                      style: TextStyle(
+                            fontSize: 25,)
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: 250,
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: ClipOval(
+                        child: Image.asset(
+                          selectedImage,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: Text("Points Earned: $pointsEarned")
+                    ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      onPressed: avatarChange,
+                      child: Text("Change your Avatar",
+                      style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      onPressed: accountDetailsChange,
+                      child: Text("Change your Account Details",                
+                      style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        ),
+                    ),
+                  ),
+                  if (trailBlazerName != '')
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TrailBlazerProfile()),
+                          );
+                        },
+                        child: Text('View TrailBlazer',                 
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        ),
+                      ),
+                    ),
+                  if (trailBlazerName == '')
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TrailBlazers()),
+                          );
+                        },
+                        child: Text('Choose trailBlazer',                 
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),),
+                      ),
+                    ),
+                ],
               ),
             ),
-            Text("Points Earned: $pointsEarned"),
-            ElevatedButton(
-              onPressed: avatarChange,
-              child: Text("Change your Avatar",
-              style: TextStyle(
-                  color: Colors.black,
-                ),
-                ),
-            ),
-            ElevatedButton(
-              onPressed: accountDetailsChange,
-              child: Text("Change your Account Details",                
-              style: TextStyle(
-                  color: Colors.black,
-                ),
-                ),
-            ),
-            if (trailBlazerName != '')
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TrailBlazerProfile()),
-                  );
-                },
-                child: Text('View TrailBlazer',                 
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-                ),
-              ),
-            if (trailBlazerName == '')
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TrailBlazers()),
-                  );
-                },
-                child: Text('Choose trailBlazer',                 
-                style: TextStyle(
-                  color: Colors.black,
-                ),),
-              ),
           ],
         ),
       ),
