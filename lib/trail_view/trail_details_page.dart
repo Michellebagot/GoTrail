@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:GoTrail/classes/trail.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:GoTrail/review_page/review_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/classes/trail.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:GoTrail/review_page/review_page.dart';
+
 import 'package:GoTrail/tracking_page/tracking_page.dart';
+import 'package:latlong2/latlong.dart';
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
@@ -24,14 +26,15 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
   
   double rating = 0.0;
   bool _canReview = false;
-  
+
+  LatLngBounds bounds = LatLngBounds.fromPoints([LatLng(0, 0)]);
 
   @override
   void initState() {
     super.initState();
+    bounds = LatLngBounds.fromPoints(widget.trail.coordinates);
     fetchTrailReviews();
     checkUserReviewedTrail();
-    fetchTrailData();
   }
 
   double calculateAverageRating(List<QueryDocumentSnapshot> reviews) {
@@ -44,8 +47,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       int rating = review['rating'].toInt();
       totalRating += rating;
     }
-    double averageRating = totalRating / reviews.length;
-    return averageRating;
+    return totalRating / reviews.length;
   }
 
   Future<void> checkUserReviewedTrail() async {
@@ -77,17 +79,12 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       print('error fetching reviews: $e');
     }
   }
-  //
-  dynamic trailData;
-  Future<void> fetchTrailData() async {
-    
-    var db = FirebaseFirestore.instance;
-    var data = await db.collection("trails").doc(widget.trail.trailId).get();
-      setState(() {
-        trailData = data.data();
-      });
+
+  String _getDisplayName(QueryDocumentSnapshot review) {
+    final userName = review['userName'];
+    return (userName == null || userName.isEmpty) ? review['userId'] : userName;
   }
-  
+
   navigateToReviewPage(BuildContext context) async {
     final reLoadPage = await Navigator.push(
       context,
@@ -103,6 +100,10 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
   
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)?.isCurrent ?? false) {
+      fetchTrailReviews();
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -135,8 +136,8 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               height: 300,
               child: FlutterMap(
                 options: MapOptions(
-                  initialCenter: widget.trail.coordinates[0],
-                  initialZoom: 14,
+                  initialCameraFit: CameraFit.bounds(
+                      bounds: bounds, padding: EdgeInsets.all(8.0)),
                 ),
                 children: [
                   TileLayer(
@@ -179,7 +180,6 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
             direction: Axis.horizontal,
           ),
 
-///////
           SizedBox(height: 8.0,),
            Center(
             child: Text('Difficulty: ${widget.trail.difficulty}')
@@ -202,8 +202,21 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 SizedBox(width: 10),
                 _canReview
                     ? ElevatedButton(
-                        onPressed: () => navigateToReviewPage(context),
-                        child: Text('Add review'))
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReviewPage(widget.trail),
+                            ),
+                          );
+                        },
+                        child: Text('Add review',                 
+                        style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+                )
+
                     : Container(),
               ],
             ),
@@ -213,8 +226,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               itemCount: reviews.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(reviews[index]['userId']),
-                  // TODO: replace with user details when user profiles are implemented
+                  title: Text(_getDisplayName(reviews[index])),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

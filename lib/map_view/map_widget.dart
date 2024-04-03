@@ -90,7 +90,7 @@ class MapWidgetState extends State<MapWidget> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Trail details'),
+                          title: Text('Trail Details'),
                           content: IntrinsicWidth(
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,24 +101,32 @@ class MapWidgetState extends State<MapWidget> {
                                 ]),
                           ),
                           actions: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop('dialog');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          TrailDetailsPage(trail),
-                                    ),
-                                  );
-                                },
-                                child: Text("View more details")),
+                            
+                            ElevatedButton(onPressed: () {
+                              Navigator.of(context, rootNavigator: true).pop('dialog');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrailDetailsPage(trail),
+                                ),
+                              );
+                            },
+                            child: Text("View more details",                 
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                            )
+                            ),
+
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text('Close'),
+                              child: Text('Close',                
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                              ),
                             ),
                           ],
                         );

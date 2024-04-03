@@ -18,11 +18,13 @@ class ReviewPageState extends State<ReviewPage> {
   final _formKey = GlobalKey<FormState>();
   int _rating = 0;
   String _comment = '';
+  String? userName;
 
   @override
   void initState() {
     super.initState();
     userId = getCurrentUserId();
+    userName = getDisplayName();
   }
 
   String? getCurrentUserId() {
@@ -34,9 +36,19 @@ class ReviewPageState extends State<ReviewPage> {
     }
   }
 
+  String? getDisplayName() {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.displayName;
+    } else {
+      return null;
+    }
+  }
+
   void _submitReview() {
     FirebaseFirestore.instance.collection('reviews').add({
       'userId': userId,
+      'userName': userName,
       'trailId': widget.trail.trailId,
       'rating': _rating,
       'comment': _comment,
@@ -74,7 +86,7 @@ class ReviewPageState extends State<ReviewPage> {
               maxHeight: 50,
             ),
             0),
-        Text('Reviewing ${widget.trail.name} as $userId'),
+        Text('Reviewing ${widget.trail.name} as $userName'),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Padding(
@@ -127,7 +139,11 @@ class ReviewPageState extends State<ReviewPage> {
                         _submitReview();
                       }
                     },
-                    child: Text('Submit'),
+                    child: Text('Submit',                 
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    ),
                   ),
                 ],
               ),

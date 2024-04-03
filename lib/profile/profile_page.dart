@@ -28,7 +28,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late String selectedImage;
+  String selectedImage = 'assets/profileImages/placeholder.jpg';
   late String userId;
   late FirebaseFirestore firestore;
   late FirebaseAuth auth;
@@ -41,7 +41,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    selectedImage = 'profileImages/placeholder.jpg';
     auth = FirebaseAuth.instance;
     firestore = FirebaseFirestore.instance;
     fetchUserData();
@@ -55,7 +54,10 @@ class _ProfilePageState extends State<ProfilePage> {
           await firestore.collection('users').doc(userId).get();
       if (snapshot.exists) {
         setState(() {
-          selectedImage = snapshot.data()?['avatarUrl'] ?? selectedImage;
+          selectedImage = snapshot.data()?['avatarUrl'] == ''
+              ? 'assets/profileImages/placeholder.jpg'
+              : snapshot.data()?['avatarUrl'] ??
+                  'assets/profileImages/placeholder.jpg';
           userName = snapshot.data()?['name'] ?? 'User';
           pointsEarned = snapshot.data()?['pointsEarned'] ?? 0;
           trailBlazerOwner = snapshot.data()?[true] ?? false;
@@ -85,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     }
   }
-  
+
   void avatarChange() {
     showDialog(
       context: context,
@@ -99,12 +101,12 @@ class _ProfilePageState extends State<ProfilePage> {
               crossAxisCount: 3,
               children: [
                 for (var hikerImage in [
-                  'profileImages/hiker1.jpg',
-                  'profileImages/hiker2.jpg',
-                  'profileImages/hiker3.jpg',
-                  'profileImages/hiker4.jpg',
-                  'profileImages/hiker5.jpg',
-                  'profileImages/hiker6.jpg'
+                  'assets/profileImages/hiker1.jpg',
+                  'assets/profileImages/hiker2.jpg',
+                  'assets/profileImages/hiker3.jpg',
+                  'assets/profileImages/hiker4.jpg',
+                  'assets/profileImages/hiker5.jpg',
+                  'assets/profileImages/hiker6.jpg'
                 ])
                   GestureDetector(
                     onTap: () {
@@ -171,14 +173,14 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: header(
-                context,
-                BoxConstraints(
-                  minWidth: double.infinity,
-                  maxWidth: double.infinity,
-                  minHeight: 30,
-                  maxHeight: 50,
-                ),
-                0),
+          context,
+          BoxConstraints(
+            minWidth: double.infinity,
+            maxWidth: double.infinity,
+            minHeight: 30,
+            maxHeight: 50,
+          ),
+          0),
       body: Center(
         child: Column(
           children: [
@@ -199,11 +201,19 @@ class _ProfilePageState extends State<ProfilePage> {
             Text("Points Earned: $pointsEarned"),
             ElevatedButton(
               onPressed: avatarChange,
-              child: Text("Change your Avatar"),
+              child: Text("Change your Avatar",
+              style: TextStyle(
+                  color: Colors.black,
+                ),
+                ),
             ),
             ElevatedButton(
               onPressed: accountDetailsChange,
-              child: Text("Change your Account Details"),
+              child: Text("Change your Account Details",                
+              style: TextStyle(
+                  color: Colors.black,
+                ),
+                ),
             ),
             if (trailBlazerName != '')
               ElevatedButton(
@@ -214,7 +224,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: (context) => TrailBlazerProfile()),
                   );
                 },
-                child: Text('View TrailBlazer'),
+                child: Text('View TrailBlazer',                 
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                ),
               ),
             if (trailBlazerName == '')
               ElevatedButton(
@@ -224,7 +238,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     MaterialPageRoute(builder: (context) => TrailBlazers()),
                   );
                 },
-                child: Text('Choose trailBlazer'),
+                child: Text('Choose trailBlazer',                 
+                style: TextStyle(
+                  color: Colors.black,
+                ),),
               ),
           ],
         ),
