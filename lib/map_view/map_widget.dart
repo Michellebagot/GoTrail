@@ -53,6 +53,10 @@ class MapWidgetState extends State<MapWidget> {
           description: doc['description'] ?? '',
           coordinates: latLngList,
           image: doc['image'] ?? '',
+          difficulty: doc['difficulty']?? '',
+          avgTime: doc['avgTime']?? '',
+          distance: doc['distance']?? '',
+          // elevation: doc['elevation']?? '',
         );
       }).toList();
 

@@ -7,6 +7,10 @@ class Trail {
   final String description;
   final List<LatLng> coordinates;
   final String image;
+  final String difficulty;
+  final int avgTime;
+  final int distance;
+  // final int elevation;
 
   Trail({
     required this.trailId,
@@ -14,6 +18,10 @@ class Trail {
     required this.description,
     required this.coordinates,
     required this.image,
+    required this.difficulty,
+    required this.avgTime,
+    required this.distance,
+    // required this.elevation,
   });
 
   Trail.fromSnapshot(DocumentSnapshot snapshot)
@@ -21,7 +29,12 @@ class Trail {
         name = snapshot.get('name'),
         description = snapshot.get('description'),
         coordinates = _convertToLatLng(snapshot.get('coordinates')),
-        image = snapshot.get('image');
+        image = snapshot.get('image'),
+        difficulty = snapshot.get('difficulty'),
+        avgTime = snapshot.get('avgTime'),
+        distance = snapshot.get('distance');
+        // elevation = snapshot.get('elevation');
+        
 
   static List<LatLng> _convertToLatLng(List<dynamic> coordinates){
     List<GeoPoint> geoPoints =

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,17 +15,18 @@ import 'package:latlong2/latlong.dart';
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
-
   TrailDetailsPage(this.trail);
-
+ 
   @override
   TrailDetailsPageState createState() => TrailDetailsPageState();
 }
 
 class TrailDetailsPageState extends State<TrailDetailsPage> {
   List<QueryDocumentSnapshot> reviews = [];
+  
   double rating = 0.0;
   bool _canReview = false;
+
   LatLngBounds bounds = LatLngBounds.fromPoints([LatLng(0, 0)]);
 
   @override
@@ -94,7 +97,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       checkUserReviewedTrail();
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     if (ModalRoute.of(context)?.isCurrent ?? false) {
@@ -164,6 +167,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               ),
             ),
           ),
+         
           Text('Average rating: ${rating.toStringAsFixed(1)} / 5'),
           RatingBarIndicator(
             rating: rating,
@@ -175,6 +179,21 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
             itemSize: 20.0,
             direction: Axis.horizontal,
           ),
+
+          SizedBox(height: 8.0,),
+           Center(
+            child: Text('Difficulty: ${widget.trail.difficulty}')
+           ),
+           Center(
+            child: Text('Average Time: ${widget.trail.avgTime.toString()}')
+           ),
+           Center(
+            child: Text('Total Distance: ${widget.trail.distance}')
+           ),
+          //  Center(
+          //   child: Text('Elevation: ${widget.trail.difficulty}')
+          //  ),
+          SizedBox(height: 15.0,),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
