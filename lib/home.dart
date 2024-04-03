@@ -47,6 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> signOut() async {
+  await FirebaseAuth.instance.signOut();
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +84,7 @@ TrailWidget(),
 
 
             const SignOutButton(),
+
           ],
         ),
       ),

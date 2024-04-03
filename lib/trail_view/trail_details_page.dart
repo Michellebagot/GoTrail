@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +15,6 @@ import 'package:latlong2/latlong.dart';
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
-
   TrailDetailsPage(this.trail);
 
   @override
@@ -22,8 +23,10 @@ class TrailDetailsPage extends StatefulWidget {
 
 class TrailDetailsPageState extends State<TrailDetailsPage> {
   List<QueryDocumentSnapshot> reviews = [];
+
   double rating = 0.0;
   bool _canReview = false;
+
   LatLngBounds bounds = LatLngBounds.fromPoints([LatLng(0, 0)]);
 
   @override
@@ -102,9 +105,10 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
     }
 
     return Scaffold(
-      body: Column(
-        children: [
-          header(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            header(
               context,
               BoxConstraints(
                 minWidth: double.infinity,
@@ -112,11 +116,12 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 minHeight: 30,
                 maxHeight: 50,
               ),
-              0),
-          SizedBox(height: 10),
-          Text('${widget.trail.name} - ${widget.trail.description}'),
-          SizedBox(height: 10),
-          ElevatedButton(
+              0,
+            ),
+            SizedBox(height: 10),
+            Text('${widget.trail.name} - ${widget.trail.description}'),
+            SizedBox(height: 10),
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -125,72 +130,100 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                   ),
                 );
               },
-              child: Text('Start Trail')),
-          SizedBox(height: 10),
-          Center(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              child: FlutterMap(
-                options: MapOptions(
-                  initialCameraFit: CameraFit.bounds(
-                      bounds: bounds, padding: EdgeInsets.all(8.0)),
+              child: Text('Start Trail'),
+            ),
+            SizedBox(height: 10),
+            Center(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                child: FlutterMap(
+                  options: MapOptions(
+                    initialCameraFit: CameraFit.bounds(
+                      bounds: bounds,
+                      padding: EdgeInsets.all(8.0),
+                    ),
+                  ),
+                  children: [
+                    TileLayer(
+                      urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      userAgentPackageName: 'com.example.app',
+                    ),
+                    PolylineLayer(
+                      polylines: [
+                        Polyline(
+                          points: widget.trail.coordinates,
+                          color: Colors.blue,
+                          strokeWidth: 3,
+                        ),
+                      ],
+                    ),
+                    RichAttributionWidget(
+                      attributions: [
+                        TextSourceAttribution(
+                          'OpenStreetMap contributors',
+                          onTap: () => launchUrl(
+                              Uri.parse('https://openstreetmap.org/copyright')),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
+              ),
+            ),
+            Text('Average rating: ${rating.toStringAsFixed(1)} / 5'),
+            RatingBarIndicator(
+              rating: rating,
+              itemBuilder: (context, index) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              itemCount: 5,
+              itemSize: 20.0,
+              direction: Axis.horizontal,
+            ),
+            SizedBox(height: 8.0,),
+            Center(
+              child: Text('Difficulty: ${widget.trail.difficulty}')
+            ),
+            Center(
+              child: Text('Average Time: ${widget.trail.avgTime.toString()}')
+            ),
+            Center(
+              child: Text('Total Distance: ${widget.trail.distance}')
+            ),
+            SizedBox(height: 15.0,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
                 children: [
-                  TileLayer(
-                    urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    userAgentPackageName: 'com.example.app',
-                  ),
-                  PolylineLayer(
-                    polylines: [
-                      Polyline(
-                        points: widget.trail.coordinates,
-                        color: Colors.blue,
-                        strokeWidth: 3,
+                  Text('Reviews (${reviews.length})'),
+                  SizedBox(width: 10),
+                  _canReview
+                      ? ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReviewPage(widget.trail),
+                        ),
+                      );
+                    },
+                    child: Text('Add review',
+                      style: TextStyle(
+                        color: Colors.black,
                       ),
-                    ],
-                  ),
-                  RichAttributionWidget(
-                    attributions: [
-                      TextSourceAttribution(
-                        'OpenStreetMap contributors',
-                        onTap: () => launchUrl(
-                            Uri.parse('https://openstreetmap.org/copyright')),
-                      ),
-                    ],
-                  ),
+                    )
+                  )
+
+                      : Container(),
                 ],
               ),
             ),
-          ),
-          Text('Average rating: ${rating.toStringAsFixed(1)} / 5'),
-          RatingBarIndicator(
-            rating: rating,
-            itemBuilder: (context, index) => Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            itemCount: 5,
-            itemSize: 20.0,
-            direction: Axis.horizontal,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text('Reviews (${reviews.length})'),
-                SizedBox(width: 10),
-                _canReview
-                    ? ElevatedButton(
-                        onPressed: () => navigateToReviewPage(context),
-                        child: Text('Add review'))
-                    : Container(),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: reviews.length,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -206,8 +239,8 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
