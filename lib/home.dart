@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             RandomTip(),
+            
             TrailWidget(),
             ElevatedButton(
                 onPressed: () {
