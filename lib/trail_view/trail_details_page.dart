@@ -1,3 +1,4 @@
+import 'package:GoTrail/profile/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -118,8 +119,12 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               ),
               0,
             ),
-            SizedBox(height: 10),
-            Text('${widget.trail.name} - ${widget.trail.description}'),
+            SizedBox(height: 15),
+            Text('${widget.trail.name} - ${widget.trail.description}',
+              style: TextStyle(
+                fontSize: 20
+              ),
+            ),
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
@@ -130,9 +135,13 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                   ),
                 );
               },
-              child: Text('Start Trail'),
+              child: Text('Start Trail', 
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Center(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -172,6 +181,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 ),
               ),
             ),
+            SizedBox(height: 15),
             Text('Average rating: ${rating.toStringAsFixed(1)} / 5'),
             RatingBarIndicator(
               rating: rating,
@@ -187,9 +197,11 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
             Center(
               child: Text('Difficulty: ${widget.trail.difficulty}')
             ),
+            SizedBox(height: 8.0,),
             Center(
               child: Text('Average Time: ${widget.trail.avgTime.toString()}')
             ),
+            SizedBox(height: 8.0,),
             Center(
               child: Text('Total Distance: ${widget.trail.distance}')
             ),
@@ -198,24 +210,29 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Text('Reviews (${reviews.length})'),
-                  SizedBox(width: 10),
+                  Container(
+                    margin: EdgeInsets.only(left: 15, top: 8, right: 8,),
+                    child: Text('Reviews (${reviews.length})')
+                  ),
                   _canReview
-                      ? ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReviewPage(widget.trail),
+                      ? Container(
+                        margin: EdgeInsets.only(left: 8, right: 8, top: 8,),
+                        child: ElevatedButton(
+                                            onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReviewPage(widget.trail),
+                          ),
+                        );
+                                            },
+                                            child: Text('Add review',
+                        style: TextStyle(
+                          color: Colors.black,
                         ),
-                      );
-                    },
-                    child: Text('Add review',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    )
-                  )
+                                            )
+                                          ),
+                      )
 
                       : Container(),
                 ],
@@ -226,15 +243,22 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: reviews.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_getDisplayName(reviews[index])),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Rating: ${reviews[index]['rating']}'),
-                      SizedBox(height: 8),
-                      Text('${reviews[index]['comment']}'),
-                    ],
+                return Container(
+                  margin: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromRGBO(166, 132, 119, 1),),
+                    borderRadius: BorderRadius.all(Radius.circular(20))
+                  ),
+                  child: ListTile(
+                    title: Text(_getDisplayName(reviews[index])),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Rating: ${reviews[index]['rating']}'),
+                        SizedBox(height: 8),
+                        Text('${reviews[index]['comment']}'),
+                      ],
+                    ),
                   ),
                 );
               },

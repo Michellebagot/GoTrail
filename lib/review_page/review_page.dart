@@ -86,7 +86,14 @@ class ReviewPageState extends State<ReviewPage> {
               maxHeight: 50,
             ),
             0),
-        Text('Reviewing ${widget.trail.name} as $userName'),
+        Container(
+          margin: EdgeInsets.all(15),
+          child: Text('Reviewing ${widget.trail.name} as $userName',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+          )
+        ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Padding(
@@ -98,6 +105,9 @@ class ReviewPageState extends State<ReviewPage> {
                 children: <Widget>[
                   Text(
                     'Rate this trail:',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
                   SizedBox(height: 10),
                   Row(
