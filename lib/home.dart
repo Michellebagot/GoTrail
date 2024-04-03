@@ -45,6 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> signOut() async {
+  await FirebaseAuth.instance.signOut();
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +100,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 )
            ),
-            const SignOutButton(),
+            ElevatedButton(
+                onPressed: () {
+                  signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignInScreen()),
+                  );
+                },
+                child: Text("Sign Out",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                )
+           ),
           ],
         ),
       ),
