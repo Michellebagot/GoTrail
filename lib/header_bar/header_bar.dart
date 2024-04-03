@@ -50,7 +50,7 @@ PreferredSizeWidget header(
         }
       },
     ),
-    toolbarHeight: 50,
+    toolbarHeight: constraints.maxHeight,
     backgroundColor: Color.fromRGBO(166, 132, 119, 1),
     actions: [
       if (FirebaseAuth.instance.currentUser != null)
