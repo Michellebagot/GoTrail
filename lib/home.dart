@@ -51,48 +51,52 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(255, 246, 222, 1),
-      body: Center(
-        child: Column(
-          children: [
-            header(
-                context,
-                BoxConstraints(
-                  minWidth: double.infinity,
-                  maxWidth: double.infinity,
-                  minHeight: 30,
-                  maxHeight: 50,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              header(
+                  context,
+                  BoxConstraints(
+                    minWidth: double.infinity,
+                    maxWidth: double.infinity,
+                    minHeight: 30,
+                    maxHeight: 50,
+                  ),
+                  0),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 20,
+                  left: 20,
+                  right: 20,
                 ),
-                0),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: Text(
-                'Step Into Adventure',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-            ),
-            RandomTip(),
-
-            TrailWidget(),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => AuthGate()),
-                  );
-                  signOut();
-                },
-                child: Text("Sign Out",
-                style: TextStyle(
-                  color: Colors.black,
+                child: Text(
+                  'Step Into Adventure',
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
-                )
-           ),
-          ],
+              ),
+              RandomTip(),
+        
+              TrailWidget(),
+              Container(
+                margin: EdgeInsets.all(15),
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => AuthGate()),
+                      );
+                      signOut();
+                    },
+                    child: Text("Sign Out",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    )
+                             ),
+              ),
+            ],
+          ),
         ),
       ),
     );
