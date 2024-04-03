@@ -16,57 +16,84 @@ class TrailBlazersState extends State<TrailBlazers> {
   var chosenTrailBlazer = '';
   var trailBlazerName = '';
 
-  @override
-  Widget build(BuildContext context) {
+  // Trailblazer sizing addressed
 
-    return Scaffold(         
-     body: SingleChildScrollView(
-                child: Column(
-                          children: [
-      Padding(
-       padding: const EdgeInsets.all(25.0),
-       child: Column(
-         crossAxisAlignment: CrossAxisAlignment.stretch,
-        
-         children: [
-           Container(
-             padding: const EdgeInsets.all(5),
-             child: Center(child: Text('Choose your TrailBlazer', style: TextStyle(fontSize: 20),))
-             ),
-           Row(
-             children: [
-               Expanded(
-                 child: SizedBox(
-                   child: IconButton(
-                     icon: Image.asset('assets/blue_type1.gif'),
-                     iconSize: 1,
-                     onPressed: () {
-                       chosenTrailBlazer = 'water1';
-                       },
-                     ),
-                 )
-               ),
-               Expanded(
-                child: SizedBox( height: 250, width: 250,
-                  child: IconButton(
-                   icon: Image.asset('assets/green_type1.gif'),
-                   iconSize: 1,
-                   onPressed: () {
-                     chosenTrailBlazer = 'grass1';
-                   },
-                 ),
-                )
-               ),
-             ],
-           ),
-           Container(
-             padding: const EdgeInsets.all(5),
-             child: SizedBox( height: 250, width: 250,
-               child: IconButton(
-                 icon: Image.asset('assets/brown_type1.gif'),
-                 iconSize: 50,
-                 onPressed: () {
-                     chosenTrailBlazer = 'mountain1';
+    @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Center(
+                      child: Text(
+                        'Choose your TrailBlazer',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          child: IconButton(
+                            icon: FadeInImage.assetNetwork(
+                              placeholder: 'assets/placeholder.gif', 
+                              image: 'assets/blue_type1.gif', 
+                              width: 250.0, 
+                              height: 250.0, 
+                              fit: BoxFit.cover, 
+                            ),
+                            iconSize: 50.0, 
+                            onPressed: () {
+                              chosenTrailBlazer = 'water1';
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 250, width: 250,
+                          child: IconButton(
+                            icon: FadeInImage.assetNetwork(
+                              placeholder: 'assets/placeholder.gif', 
+                              image: 'assets/green_type1.gif', 
+                              width: 250.0, 
+                              height: 250.0, 
+                              fit: BoxFit.cover, 
+                            ),
+                            iconSize: 50.0, 
+                            onPressed: () {
+                              chosenTrailBlazer = 'grass1';
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: SizedBox(
+                      height: 250, width: 250,
+                      child: IconButton(
+                        icon: FadeInImage.assetNetwork(
+                          placeholder: 'assets/placeholder.gif', 
+                          image: 'assets/brown_type1.gif', 
+                          width: 250.0, 
+                          height: 250.0, 
+                          fit: BoxFit.cover, 
+                        ),
+                        iconSize: 50.0, 
+                        onPressed: () {
+                          chosenTrailBlazer = 'mountain1';
+
+                          // Trailblazer sizing addressed
                  },
                ),
              )
