@@ -11,7 +11,6 @@ import 'package:GoTrail/review_page/review_page.dart';
 import 'package:GoTrail/tracking_page/tracking_page.dart';
 import 'package:latlong2/latlong.dart';
 
-
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
 
@@ -78,10 +77,10 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
     }
   }
 
-
   String _getDisplayName(QueryDocumentSnapshot review) {
     final userName = review['userName'];
     return (userName == null || userName.isEmpty) ? review['userId'] : userName;
+  }
 
   navigateToReviewPage(BuildContext context) async {
     final reLoadPage = await Navigator.push(
@@ -94,7 +93,6 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       fetchTrailReviews();
       checkUserReviewedTrail();
     }
-
   }
 
   @override
