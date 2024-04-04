@@ -13,10 +13,17 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
   dynamic trailBlazerData;
   dynamic pointsRequired;
   dynamic isFinalStage = false;
+  dynamic trailBlazerStage;
 
   @override
   void initState() {
     super.initState();
+    fetchUserData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     fetchUserData();
   }
 
@@ -44,27 +51,30 @@ class _TrailBlazerProfileState extends State<TrailBlazerProfile> {
           isFinalStage = true;
         }
 
-        if (userData != null) {
-          fetchtrailBlazerData(userData['trailBlazer']);
-        }
-
         if (userData['pointsEarned'] < 100) {
           userRef.set({
             "trailBlazer":
                 '${userData['trailBlazer'].substring(0, userData['trailBlazer'].length - 1)}1',
           }, SetOptions(merge: true));
+          setState(() => trailBlazerStage =
+              '${userData['trailBlazer'].substring(0, userData['trailBlazer'].length - 1)}1');
         } else if (userData['pointsEarned'] >= 100 &&
             userData['pointsEarned'] < 200) {
           userRef.set({
             "trailBlazer":
                 '${userData['trailBlazer'].substring(0, userData['trailBlazer'].length - 1)}2',
           }, SetOptions(merge: true));
+          setState(() => trailBlazerStage =
+              '${userData['trailBlazer'].substring(0, userData['trailBlazer'].length - 1)}2');
         } else if (userData['pointsEarned'] >= 200) {
           userRef.set({
             "trailBlazer":
                 '${userData['trailBlazer'].substring(0, userData['trailBlazer'].length - 1)}3',
           }, SetOptions(merge: true));
+          setState(() => trailBlazerStage =
+              '${userData['trailBlazer'].substring(0, userData['trailBlazer'].length - 1)}3');
         }
+        fetchtrailBlazerData(trailBlazerStage);
       } else {
         print("User document not found");
       }
