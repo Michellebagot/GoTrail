@@ -79,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
               RandomTip(),
         
               TrailWidget(),
-              // ElevatedButton(onPressed: ()=>Share.share('check out my website https://example.com', subject: 'Look what I made!'), child: null,),
               Container(
                 margin: EdgeInsets.all(15),
                 child: ElevatedButton(
