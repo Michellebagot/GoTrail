@@ -1,8 +1,5 @@
-import 'package:GoTrail/profile/profile_page.dart';
 import 'package:GoTrail/weather/weather_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,15 +10,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:GoTrail/review_page/review_page.dart';
 import 'package:GoTrail/tracking_page/tracking_page.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:weather/weather.dart';
-
-
-Widget weather = weatherWidget(53.1885, 1.451139);
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
   TrailDetailsPage(this.trail);
-  
+
   @override
   TrailDetailsPageState createState() => TrailDetailsPageState();
 }
@@ -34,11 +27,14 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
 
   LatLngBounds bounds = LatLngBounds.fromPoints([LatLng(0, 0)]);
 
+  Widget weather = weatherWidget(0, 0);
+
   @override
   void initState() {
     super.initState();
     bounds = LatLngBounds.fromPoints(widget.trail.coordinates);
-    
+    weather = weatherWidget(widget.trail.coordinates.first.latitude,
+        widget.trail.coordinates.first.longitude);
     fetchTrailReviews();
     checkUserReviewedTrail();
   }
@@ -96,7 +92,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       context,
       MaterialPageRoute(builder: (context) => ReviewPage(widget.trail)),
     );
- 
+
     if (reLoadPage == true) {
       print("reloading page...");
       fetchTrailReviews();
@@ -125,26 +121,59 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               0,
             ),
             SizedBox(height: 15),
-            Text('${widget.trail.name} - ${widget.trail.description}',
-              style: TextStyle(
-                fontSize: 20
-              ),
+            Text(
+              '${widget.trail.name} - ${widget.trail.description}',
+              style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TrackingPage(widget.trail),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Weather'),
+                          content: IntrinsicHeight(child: weather),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Text(
+                    'Show current weather',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
-                );
-              },
-              child: Text('Start Trail', 
-                style: TextStyle(
-                  color: Colors.black,
                 ),
-              ),
+                SizedBox(width:10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TrackingPage(widget.trail),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Start Trail',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 15),
             Center(
@@ -198,47 +227,60 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
               itemSize: 20.0,
               direction: Axis.horizontal,
             ),
-            SizedBox(height: 8.0,),
-            Center(
-              child: Text('Difficulty: ${widget.trail.difficulty}')/////////
+            SizedBox(
+              height: 8.0,
             ),
-            SizedBox(height: 8.0,),
             Center(
-              child: Text('Average Time: ${widget.trail.avgTime.toString()}')
+                child: Text('Difficulty: ${widget.trail.difficulty}') /////////
+                ),
+            SizedBox(
+              height: 8.0,
             ),
-            SizedBox(height: 8.0,),
             Center(
-              child: Text('Total Distance: ${widget.trail.distance}')
+                child:
+                    Text('Average Time: ${widget.trail.avgTime.toString()}')),
+            SizedBox(
+              height: 8.0,
             ),
-            SizedBox(height: 15.0,),
+            Center(child: Text('Total Distance: ${widget.trail.distance}')),
+            SizedBox(
+              height: 15.0,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 15, top: 8, right: 8,),
-                    child: Text('Reviews (${reviews.length})')
-                  ),
+                      margin: EdgeInsets.only(
+                        left: 15,
+                        top: 8,
+                        right: 8,
+                      ),
+                      child: Text('Reviews (${reviews.length})')),
                   _canReview
                       ? Container(
-                        margin: EdgeInsets.only(left: 8, right: 8, top: 8,),
-                        child: ElevatedButton(
-                                            onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReviewPage(widget.trail),
+                          margin: EdgeInsets.only(
+                            left: 8,
+                            right: 8,
+                            top: 8,
                           ),
-                        );
-                                            },
-                                            child: Text('Add review',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                                            )
-                                          ),
-                      )
-
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ReviewPage(widget.trail),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Add review',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              )),
+                        )
                       : Container(),
                 ],
               ),
@@ -251,10 +293,10 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                 return Container(
                   margin: EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromRGBO(166, 132, 119, 1),),
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-
+                      border: Border.all(
+                        color: Color.fromRGBO(166, 132, 119, 1),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: ListTile(
                     title: Text(_getDisplayName(reviews[index])),
                     subtitle: Column(
@@ -263,15 +305,12 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                         Text('Rating: ${reviews[index]['rating']}'),
                         SizedBox(height: 8),
                         Text('${reviews[index]['comment']}'),
-                      
-                       
                       ],
                     ),
                   ),
                 );
               },
             ),
-            weather,
           ],
         ),
       ),

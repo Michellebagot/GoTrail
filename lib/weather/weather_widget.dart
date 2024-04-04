@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/weather.dart';
-import 'package:GoTrail/weather_api.dart';
+import 'package:GoTrail/api/api_key.dart';
 
 Widget weatherWidget(double latitude, double longitude) {
   final WeatherFactory _wf = WeatherFactory(OPENWEATHER_API_KEY);
