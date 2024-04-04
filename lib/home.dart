@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:GoTrail/auth_gate.dart';
 import 'package:GoTrail/trail_widget_homepage/trail_widget_homepage.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -78,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               RandomTip(),
         
               TrailWidget(),
+              // ElevatedButton(onPressed: ()=>Share.share('check out my website https://example.com', subject: 'Look what I made!'), child: null,),
               Container(
                 margin: EdgeInsets.all(15),
                 child: ElevatedButton(

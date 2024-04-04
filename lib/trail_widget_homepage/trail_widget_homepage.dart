@@ -8,7 +8,7 @@ import 'package:GoTrail/trail_view/trail_details_page.dart';
 TextStyle titleStyle = TextStyle(
   fontFamily: GoogleFonts.balooBhaina2().fontFamily,
   fontWeight: FontWeight.bold,
-  fontSize: 24, //needs altering to accommodate mobile styling
+  fontSize: 24, // Adjust as needed for mobile styling
   color: Colors.black,
   decoration: TextDecoration.none,
 );
@@ -16,7 +16,7 @@ TextStyle titleStyle = TextStyle(
 TextStyle detailStyle = TextStyle(
   fontFamily: GoogleFonts.lexendDeca().fontFamily,
   fontWeight: FontWeight.normal,
-  fontSize: 14, //needs altering to accommodate mobile styling
+  fontSize: 14, // Adjust as needed for mobile styling
   color: Colors.black,
   decoration: TextDecoration.none,
 );
@@ -27,15 +27,8 @@ class TrailWidget extends StatefulWidget {
 }
 
 class _TrailWidgetState extends State<TrailWidget> {
-  late Trail trailId;
-  late String trailImage;
-  late String trailTitle;
-  late String trailDescription;
-  late int trailDistance;
-  late String trailDifficulty;
-  bool isLoading = true;
-
   late Trail trail;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -50,11 +43,6 @@ class _TrailWidgetState extends State<TrailWidget> {
     DocumentSnapshot randomTrail = collection.docs[random];
     setState(() {
       trail = Trail.fromSnapshot(randomTrail);
-      trailImage = randomTrail['image'];
-      trailTitle = randomTrail['name'];
-      trailDescription = randomTrail['description'];
-      trailDistance = randomTrail['distance'];
-      trailDifficulty = randomTrail['difficulty'];
       isLoading = false;
     });
   }
@@ -62,84 +50,65 @@ class _TrailWidgetState extends State<TrailWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          if (trail != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => TrailDetailsPage(trail),
-              ),
-            );
-          }
-        },
-        child: SizedBox(
-          height: 275,
-          width: 800,
-          child: Card(
-            margin: EdgeInsets.all(50),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+      onTap: () {
+        if (!isLoading) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TrailDetailsPage(trail),
             ),
-            color: Color.fromRGBO(166, 159, 119, 1),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30.0),
-                    child: CircleAvatar(
-                      radius: 70,
-                      child: ClipOval(
-                        child: isLoading
-                            ? CircularProgressIndicator()
-                            : Image.network(
-                                trailImage,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: double.infinity,
-                              ),
+          );
+        }
+      },
+      child: SizedBox(
+        width: 800,
+        height: null,
+        child: Card(
+          margin: EdgeInsets.all(50),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: Color.fromRGBO(166, 159, 119, 1),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: isLoading ? null : NetworkImage(trail.image),
+                  child: isLoading ? CircularProgressIndicator() : null,
+                ),
+                SizedBox(height: 10),
+                isLoading
+                    ? CircularProgressIndicator()
+                    : Text(
+                        'Your Selected Trail - ${trail.name}',
+                        style: titleStyle,
+                        textAlign: TextAlign.center,
                       ),
-                    ),
+                SizedBox(height: 5),
+                if (!isLoading) ...[
+                  Text(
+                    trail.description,
+                    style: detailStyle,
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10),
-                        isLoading
-                            ? CircularProgressIndicator()
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Your Selected Trail - ${trailTitle ?? 'Loading...'}',
-                                    style: titleStyle,
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    trailDescription ?? 'Loading...',
-                                    style: detailStyle,
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    'Distance: ${trailDistance ?? 'Loading...'}m',
-                                    style: detailStyle,
-                                  ),
-                                  Text(
-                                    'Difficulty: ${trailDifficulty ?? 'Loading...'}',
-                                    style: detailStyle,
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
+                  SizedBox(height: 5),
+                  Text(
+                    'Distance: ${trail.distance}m',
+                    style: detailStyle,
+                  ),
+                  Text(
+                    'Difficulty: ${trail.difficulty}',
+                    style: detailStyle,
                   ),
                 ],
-              ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

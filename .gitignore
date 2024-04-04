@@ -4,6 +4,7 @@
 api/
 api_key.dart
 lib/api/firebase_options.dart
+weather_api.dart
 
 ### Dart ###
 # See https://www.dartlang.org/guides/libraries/private-files
@@ -112,3 +113,4 @@ lib/generated_plugin_registrant.dart
 
 .DS_Store
 ./lib/api/
+./weather_api.dart
