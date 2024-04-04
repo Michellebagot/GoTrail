@@ -18,18 +18,20 @@ The development team includes:
 
 ### How to clone
 
-To clone this repository, within your terminal, navigate to an appropriate directory and use the command
+To clone this repository, within your terminal, navigate to an appropriate directory and use the commands
 
 ```
 git clone https://github.com/Michellebagot/GoTrail
+cd GoTrail
 ```
 
-### How to install dependencies
+### Dependencies
 
 The following dependences are required for this project
 
-- flutter:
-    * sdk: flutter
+- flutter
+
+To install Flutter, follow the official [Flutter installation instructions](https://docs.flutter.dev/get-started/install).
 
 - cupertino_icons: ^1.0.6
 - flutter_map: ^6.1.0
@@ -44,17 +46,37 @@ The following dependences are required for this project
 - google_fonts: ^6.2.1
 - flutter_rating_bar: ^4.0.1
 - cached_network_image: ^3.3.1
+- firebase_storage: ^11.6.10
+- geolocator: ^11.0.0
+- flutter_map_location_marker: ^8.0.8
+- dropdown_search: ^5.0.6
+- weather: ^3.1.1
+- share_plus: ^8.0.2
 
-please ensure documentation is followed when installing these dependencies!
+Please ensure documentation is followed when installing these dependencies!
+
+#### Installation
+To install all necessary dependencies, run the following command:
+`flutter pub get`
 
 ### Minimum requirements
 
 This project was created using:
 
-- Flutter (vXXX)
-- Firebase (vXXX)
+- Flutter (v3.19.3)
+- Firebase (v12.9.1)
 
 Using earlier versions may cause performance issues.
+
+### Usage
+To run the app in debug mode in VS Code you can use any of the following:
+- A web browser (Chrome is recommended)
+- An Android emulator, set up using [Android Studio](https://developer.android.com/studio)
+- An iOS emulator, set up using [XCode](https://developer.apple.com/xcode/)
+- A physical Android or iOS device, which you can connect with a data cable or via wifi - see [Android Debugging Bridge](https://developer.android.com/tools/adb) for use of a physical Android device
+
+### Acknowledgements
+The OpenStreetMap community provided the mapping data used in this project. OpenStreetMap is an invaluable resource for creating location-based applications and services. To learn more about OpenStreetMap and how you can contribute, visit [OpenStreetMap](https://www.openstreetmap.org/).
 
 ## USEFUL FLUTTER RESOURCES
 
