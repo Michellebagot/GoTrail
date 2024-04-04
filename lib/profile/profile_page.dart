@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:GoTrail/profile/trail_blazer_profile.dart';
 import 'package:GoTrail/trail_blazer_options.dart';
+import 'package:share_plus/share_plus.dart';
 
 TextStyle titleStyle = TextStyle(
   fontFamily: GoogleFonts.balooBhaina2().fontFamily,
@@ -183,6 +184,7 @@ class _ProfilePageState extends State<ProfilePage> {
             maxHeight: 50,
           ),
           0),
+          
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -196,7 +198,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(
                             fontSize: 25,)
                     ),
+                    
                   ),
+                  
                   SizedBox(
                     width: 250,
                     child: Container(
@@ -211,6 +215,17 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     margin: EdgeInsets.all(10),
                     child: Text("Points Earned: $pointsEarned")
+                    ),
+                    SizedBox(width: 10), 
+                    IconButton(
+                      icon: Icon(
+                        Icons.share,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        Share.share('Hey! check this awesome app for trailing and playing game while you hike. I already got $pointsEarned points.', subject: 'Check this Cool App!!');
+                      },
                     ),
                   Container(
                     margin: EdgeInsets.all(10),
@@ -267,10 +282,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.black,
                         ),),
                       ),
+                      
                     ),
+                 
                 ],
               ),
             ),
+    
+        
           ],
         ),
       ),
