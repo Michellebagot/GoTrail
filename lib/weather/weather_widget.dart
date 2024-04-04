@@ -86,15 +86,21 @@ Widget _weatherIcon(Weather _weather) {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Container(
-        height: 50, // Adjust height as needed
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-              "http://openweathermap.org/img/wn/${_weather.weatherIcon}@4x.png",
+      Stack(
+        children: [
+          Container(
+            height: 50, // Adjust size as needed
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color.fromRGBO(166, 159, 119, 1), // Background circle color
+              image: DecorationImage(
+                image: NetworkImage(
+                  "http://openweathermap.org/img/wn/${_weather.weatherIcon}@4x.png",
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
       Text(_weather.weatherDescription ?? ""),
     ],
@@ -111,7 +117,7 @@ Widget _extraInfo(Weather _weather) {
   return Container(
     width: 300, 
     decoration: BoxDecoration(
-      color: Colors.deepPurpleAccent,
+      color: Color.fromRGBO(166, 159, 119, 1),
       borderRadius: BorderRadius.circular(20),
     ),
     padding: const EdgeInsets.all(8.0),
@@ -125,11 +131,11 @@ Widget _extraInfo(Weather _weather) {
           children: [
             Text(
               "Max: ${_weather.tempMax?.celsius?.toStringAsFixed(0)}° C",
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              style: TextStyle(color: Colors.black, fontSize: 15),
             ),
             Text(
               "Min: ${_weather.tempMin?.celsius?.toStringAsFixed(0)}° C",
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              style: TextStyle(color: Colors.black, fontSize: 15),
             ),
           ],
         ),
@@ -139,11 +145,11 @@ Widget _extraInfo(Weather _weather) {
           children: [
             Text(
               "Wind: ${_weather.windSpeed?.toStringAsFixed(0)}m/s",
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              style: TextStyle(color: Colors.black, fontSize: 15),
             ),
             Text(
               "Humidity: ${_weather.humidity?.toStringAsFixed(0)}%",
-              style: TextStyle(color: Colors.white, fontSize: 15),
+              style: TextStyle(color: Colors.black, fontSize: 15),
             ),
           ],
         ),
