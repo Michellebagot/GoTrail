@@ -10,7 +10,10 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  dynamic dropdown;
+  List<String> list = <String>['Easy', 'Medium', 'Hard'];
   String _searchText = "";
+  String dropdownValue = '';
   List<Trail> _allTrails = [];
   List<Trail> _filteredTrails = [];
 
@@ -19,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    dropdownValue = list.first;
     _fetchTrails();
   }
 
@@ -48,6 +52,34 @@ class _SearchPageState extends State<SearchPage> {
                 _filterTrails(_searchText);
               });
             },
+          ),
+          ////////////////////////////
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: [
+                Text('Filter your difficulty: '),
+                DropdownMenu<String>(
+                  initialSelection: list.first,
+                  onSelected: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                      _filteredTrails = _allTrails
+                          .where((trail) =>
+                              trail.difficulty == value.toLowerCase())
+                          .toList();
+                      print(value);
+                      print(_filteredTrails);
+                    });
+                  },
+                  dropdownMenuEntries:
+                      list.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
+                  }).toList(),
+                )
+              ],
+            ),
           ),
           Expanded(
             child: _filteredTrails.isNotEmpty
@@ -130,26 +162,28 @@ class TrailListItem extends StatelessWidget {
               child: Text(trail.description),
             ),
             Spacer(),
-           ElevatedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TrailDetailsPage(trail),
-      ),
-    );
-  },
-  child: Text(
-    "View trail", 
-    style: TextStyle(
-      color: Colors.black,
-    ),
-  ),
-)
-
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrailDetailsPage(trail),
+                  ),
+                );
+              },
+              child: Text(
+                "View trail",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            )
           ],
         ),
       ),
     );
   }
 }
+
+/////
+
