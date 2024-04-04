@@ -1,6 +1,12 @@
 # GoTrail 🏞️🥾🌲
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white) ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)
 
+<img src="https://github.com/Michellebagot/GoTrail/assets/55058125/a4d78f28-52a9-4607-86a8-6f47e9078235" height="250"> <img src="https://github.com/Michellebagot/GoTrail/assets/55058125/3deddd1f-4ecf-4a7f-94cb-b24a3f0fbbd2" height="250"> <img src="https://github.com/Michellebagot/GoTrail/assets/55058125/a26ea456-f4c6-4a6a-8185-860b88e410ba" height="250"> <img src="https://github.com/Michellebagot/GoTrail/assets/55058125/b0c4ab93-5c27-43bb-91af-78a6d193489c" height="250">
+
+
+
+
+
 ## SUMMARY
 
 GoTrail is an app designed to encorage people to explore their local environments and find those hidden gems!
