@@ -1,4 +1,5 @@
 import 'package:GoTrail/profile/profile_page.dart';
+import 'package:GoTrail/weather/weather_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,14 +11,17 @@ import 'package:GoTrail/classes/trail.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:GoTrail/review_page/review_page.dart';
-
 import 'package:GoTrail/tracking_page/tracking_page.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:weather/weather.dart';
+
+
+Widget weather = weatherWidget(53.1885, 1.451139);
 
 class TrailDetailsPage extends StatefulWidget {
   final Trail trail;
   TrailDetailsPage(this.trail);
-
+  
   @override
   TrailDetailsPageState createState() => TrailDetailsPageState();
 }
@@ -34,6 +38,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
   void initState() {
     super.initState();
     bounds = LatLngBounds.fromPoints(widget.trail.coordinates);
+    
     fetchTrailReviews();
     checkUserReviewedTrail();
   }
@@ -91,7 +96,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
       context,
       MaterialPageRoute(builder: (context) => ReviewPage(widget.trail)),
     );
-
+ 
     if (reLoadPage == true) {
       print("reloading page...");
       fetchTrailReviews();
@@ -195,7 +200,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
             ),
             SizedBox(height: 8.0,),
             Center(
-              child: Text('Difficulty: ${widget.trail.difficulty}')
+              child: Text('Difficulty: ${widget.trail.difficulty}')/////////
             ),
             SizedBox(height: 8.0,),
             Center(
@@ -249,6 +254,7 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                     border: Border.all(color: Color.fromRGBO(166, 132, 119, 1),),
                     borderRadius: BorderRadius.all(Radius.circular(20))
                   ),
+
                   child: ListTile(
                     title: Text(_getDisplayName(reviews[index])),
                     subtitle: Column(
@@ -257,12 +263,15 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
                         Text('Rating: ${reviews[index]['rating']}'),
                         SizedBox(height: 8),
                         Text('${reviews[index]['comment']}'),
+                      
+                       
                       ],
                     ),
                   ),
                 );
               },
             ),
+            weather,
           ],
         ),
       ),

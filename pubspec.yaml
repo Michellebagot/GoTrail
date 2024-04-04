@@ -51,6 +51,8 @@ dependencies:
   geolocator: ^11.0.0
   flutter_map_location_marker: ^8.0.8
   dropdown_search: ^5.0.6
+  weather: ^3.1.1
+  share_plus: ^8.0.2
 
 dev_dependencies:
   flutter_test:
