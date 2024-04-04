@@ -224,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         size: 30,
                       ),
                       onPressed: () {
-                        Share.share('Hey! check this awesome app for trailing and playing game while you hike. I already got $pointsEarned points.', subject: 'Check this Cool App!!');
+                        Share.share("Hey! check out GoTrail! It's an great app for finding and taking awesome trails.  You can also grow your TrailBlazer whilst you hike! I already got $pointsEarned points.", subject: 'Check out GoTrail!!');
                       },
                     ),
                   Container(
