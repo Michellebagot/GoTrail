@@ -11,7 +11,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   dynamic dropdown;
-  List<String> list = <String>['Easy', 'Medium', 'Hard'];
+  List<String> list = <String>['All','Easy', 'Medium', 'Hard'];
   String _searchText = "";
   String dropdownValue = '';
   List<Trail> _allTrails = [];
@@ -64,12 +64,15 @@ class _SearchPageState extends State<SearchPage> {
                   onSelected: (String? value) {
                     setState(() {
                       dropdownValue = value!;
+                      if(value == 'All'){
+                        _filteredTrails = _allTrails;
+                      }
+                      else{
                       _filteredTrails = _allTrails
                           .where((trail) =>
                               trail.difficulty == value.toLowerCase())
                           .toList();
-                      print(value);
-                      print(_filteredTrails);
+                      }
                     });
                   },
                   dropdownMenuEntries:
