@@ -238,11 +238,11 @@ class TrailDetailsPageState extends State<TrailDetailsPage> {
             ),
             Center(
                 child:
-                    Text('Average Time: ${widget.trail.avgTime.toString()}')),
+                    Text('Average Time: ${widget.trail.avgTime.toString()} min')),
             SizedBox(
               height: 8.0,
             ),
-            Center(child: Text('Total Distance: ${widget.trail.distance}')),
+            Center(child: Text('Total Distance: ${widget.trail.distance} m')),
             SizedBox(
               height: 15.0,
             ),
