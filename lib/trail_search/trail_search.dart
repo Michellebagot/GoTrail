@@ -3,6 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:GoTrail/header_bar/header_bar.dart';
 import 'package:GoTrail/trail_view/trail_details_page.dart';
 import 'package:GoTrail/classes/trail.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+
+
+ List<Trail> _allTrails = [];
+List<Trail> _filteredTrails = [];
+
 
 class SearchPage extends StatefulWidget {
   @override
@@ -10,9 +16,10 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  dynamic dropdown;
   String _searchText = "";
-  List<Trail> _allTrails = [];
-  List<Trail> _filteredTrails = [];
+ 
+
 
   final _firestore = FirebaseFirestore.instance;
 
@@ -49,6 +56,16 @@ class _SearchPageState extends State<SearchPage> {
               });
             },
           ),
+          ////////////////////////////
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: [
+                Text('Filter your difficulty: '),
+                DropdownOption(),
+              ],
+            ),
+          ),
           Expanded(
             child: _filteredTrails.isNotEmpty
                 ? ListView.builder(
@@ -65,6 +82,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> _fetchTrails() async {
     try {
+      
       final trails = await _firestore.collection('trails').get();
       final trailList =
           trails.docs.map((doc) => Trail.fromSnapshot(doc)).toList();
@@ -78,18 +96,18 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _filterTrails(String searchText) {
-    if (searchText.isEmpty) {
-      setState(() {
-        _filteredTrails = _allTrails;
-      });
-      return;
-    }
-    setState(() {
-      _filteredTrails = _allTrails
-          .where((trail) =>
-              trail.name.toLowerCase().contains(searchText.toLowerCase()))
-          .toList();
-    });
+    // if (searchText.isEmpty) {
+    //   setState(() {
+    //     _filteredTrails = _allTrails;
+    //   });
+    //   return;
+    // }
+    // setState(() {
+    //   _filteredTrails = _allTrails
+    //       .where((trail) =>
+    //           trail.name.toLowerCase().contains(searchText.toLowerCase()))
+    //       .toList();
+    // });
   }
 }
 
@@ -153,3 +171,44 @@ class TrailListItem extends StatelessWidget {
     );
   }
 }
+
+/////
+const List<String> list = <String>['Easy', 'Medium', 'Hard'];
+class DropdownOption extends StatefulWidget {
+  const DropdownOption({super.key});
+
+  @override
+  State<DropdownOption> createState() => _DropdownOptionState();
+}
+
+class _DropdownOptionState extends State<DropdownOption> {
+  String dropdownValue = 'list.first';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownMenu<String>(
+      
+      initialSelection: list.first,
+      onSelected: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+  
+           _filteredTrails = _allTrails
+          .where((trail) =>
+              trail.difficulty == value.toLowerCase())
+          .toList();
+          print(value);
+          print(_filteredTrails);
+
+          
+        });
+       
+      },
+      dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
+    );
+  }
+}
+
