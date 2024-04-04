@@ -87,7 +87,7 @@ To run the app in debug mode in VS Code you can use any of the following:
 - A web browser (Chrome is recommended)
 - An Android emulator, set up using [Android Studio](https://developer.android.com/studio)
 - An iOS emulator, set up using [XCode](https://developer.apple.com/xcode/)
-- A physical Android or iOS device, which you can connect with a data cable or via wifi - see [Android Debugging Bridge](https://developer.android.com/tools/adb) for use of a physical Android device
+- A physical Android or iOS device, which you can connect with a data cable or via wifi - see [Android Debug Bridge](https://developer.android.com/tools/adb) for use of a physical Android device
 
 ### Acknowledgements
 The OpenStreetMap community provided the mapping data used in this project. OpenStreetMap is an invaluable resource for creating location-based applications and services. To learn more about OpenStreetMap and how you can contribute, visit [OpenStreetMap](https://www.openstreetmap.org/).
