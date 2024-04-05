@@ -11,11 +11,11 @@ It has been created a fulfilment of the January 2024/Seminar Group 2 Software De
 
 The development team includes:
 
-* Danilo Piga
-* Ram Shrestha
-* Eleanor Reece Frank
-* Amy Fisher
-* Michelle Bagot
+* Danilo Piga (https://github.com/Danilo-Piga)  
+* Ram Shrestha (https://github.com/arpstha)
+* Eleanor Reece Frank (https://github.com/eleanor-rf)
+* Amy Fisher (https://github.com/amyf211)
+* Michelle Bagot (https://github.com/michellebagot)
 
 ## MAIN FEATURES
 Users can:
